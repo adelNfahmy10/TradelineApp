@@ -1,0 +1,7 @@
+{
+  "name": "tadelineApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
