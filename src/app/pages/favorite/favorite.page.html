@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button defaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">Favorites</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="favorite-list p-3">
+    <ion-list>
+      <!-- Cart Items -->
+      @for (item of allFavorites; track item.id) {
+        <ion-item-sliding>
+          <ion-item routerLink="/product">
+            <!-- Image -->
+            <ion-avatar slot="start">
+              <img [src]="item.picture1" [alt]="item.name">
+            </ion-avatar>
+
+            <!-- Content -->
+            <ion-label>
+              <h2>{{ item.name }}</h2>
+              <p>{{ item.price | number }} EGP</p>
+            </ion-label>
+          </ion-item>
+
+          <!-- Swipe Right -->
+          <ion-item-options side="end">
+            <ion-item-option
+              color="danger"
+              expandable
+              (click)="deleteFavorite(item.id)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+
+          <!-- Swipe Left (اختياري) -->
+          <ion-item-options side="start">
+            <ion-item-option
+              color="danger"
+              expandable
+              (click)="deleteFavorite(item.id)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+
+        </ion-item-sliding>
+      } @empty {
+        <p class="text-center">No products in favorites.</p>
+      }
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,0 +1,22 @@
+.del-msg{
+  font-size: 12px;
+}
+ion-button{
+  font-size: 10px;
+  font-weight: bold;
+}
+ion-button.checkout{
+  --background: #067342;
+  --color: #fff;
+  --border-radius: 20px;
+}
+
+ion-button.continue{
+  --border-color: #067342;
+  --color: #067342;
+  --border-radius: 20px;
+
+}
+ion-card{
+  border-radius: 20px;
+}

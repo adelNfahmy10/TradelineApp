@@ -1,18 +1,127 @@
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="tab1" href="/tabs/tab1">
-      <ion-icon aria-hidden="true" name="triangle"></ion-icon>
-      <ion-label>Tab 1</ion-label>
-    </ion-tab-button>
+<ion-menu contentId="main-content">
+  <ion-header class="p-4 shadow-none header-menu bg-light">
+    <ion-icon name="person-circle-outline" color="success" class="icon-toolbar"></ion-icon>
+    <h3>{{ userName }}</h3>
+    <span>Points {{ posints }}</span>
+  </ion-header>
 
-    <ion-tab-button tab="tab2" href="/tabs/tab2">
-      <ion-icon aria-hidden="true" name="ellipse"></ion-icon>
-      <ion-label>Tab 2</ion-label>
-    </ion-tab-button>
+  <ion-content>
+    <ion-list lines="none">
 
-    <ion-tab-button tab="tab3" href="/tabs/tab3">
-      <ion-icon aria-hidden="true" name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/account-info">
+          <ion-label class="main-color menu-lable">My Account</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/easy-pay">
+          <ion-label class="main-color menu-lable">Easy Pay</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/orders">
+          <ion-label class="main-color menu-lable">Orders</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/tvc-history">
+          <ion-label class="main-color menu-lable">TVC History</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/favorite">
+          <ion-label class="main-color menu-lable">Favorites</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/about-us">
+          <ion-label class="main-color menu-lable">About Us</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      @if (token()) {
+        <ion-menu-toggle auto-hide="true">
+          <ion-item (click)="logout()">
+            <ion-label class="fw-bold main-color menu-lable">
+              Logout
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle auto-hide="true">
+          <ion-item>
+            <ion-label class="main-color menu-lable">
+              Delete Account
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      }
+
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <div class="tool-header d-flex align-items-center justify-content-between px-3 py-4 w-100">
+
+        <!-- Left Icon -->
+        @if(token()){
+          <ion-menu-button>
+            <ion-icon name="person-circle-outline" color="success" class="icon-toolbar"></ion-icon>
+          </ion-menu-button>
+        } @else {
+          <ion-icon name="person-circle-outline" color="success" class="icon-toolbar" routerLink="/auth"></ion-icon>
+        }
+
+
+        <!-- Title -->
+        <div class="text-center">
+           @if(title !== 'Support'){
+              <h1 class="m-0 flex-grow-1 text-center h1 text-black fw-bold">{{title}}</h1>
+            } @if(title == 'Support'){
+              <img loading="lazy" src="/assets/images/support-images/care.png" class="img-toolbar" alt="tradeline">
+            }
+        </div>
+
+        <!-- Right Icon -->
+        <ion-icon name="search-outline" color="success" class="icon-toolbar"></ion-icon>
+
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="explore" routerLink="/tabs/explore">
+          <ion-icon name="compass-outline"></ion-icon>
+          <ion-label>Explore</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="shop" routerLink="/tabs/shop">
+          <ion-icon name="cart-outline"></ion-icon>
+          <ion-label>Shop</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="cart" routerLink="/tabs/cart">
+          <ion-icon name="bag-outline"></ion-icon>
+          <ion-label>Cart</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="support" routerLink="/tabs/support">
+          <ion-icon name="settings-outline"></ion-icon>
+          <ion-label>Support</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+
+    </ion-tabs>
+  </ion-content>
+</div>

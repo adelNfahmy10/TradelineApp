@@ -1,0 +1,15 @@
+$main-color: #00a359;
+$second-color: #017943;
+
+.about-us{
+  h3{
+    font-size: 14px;
+    font-weight: 600;
+    color: $main-color;
+  }
+  p{
+    font-size: 12px;
+    color: #313131c0;
+    line-height: 15px;
+  }
+}

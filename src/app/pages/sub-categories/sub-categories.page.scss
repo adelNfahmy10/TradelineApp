@@ -1,0 +1,13 @@
+.size-option{
+  box-shadow: 0 0 3px #067342;
+  font-size: 14px;
+  &.active, &:hover {
+    background: #067342;
+    color: #fff;
+  }
+}
+.subImg{
+  img{
+    width: 150px;
+  }
+}

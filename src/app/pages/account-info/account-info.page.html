@@ -1,0 +1,146 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button defaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">Account</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="text-center p-3">
+    <h3 class="pt-4 pb-2">Your Account Information</h3>
+    <form [formGroup]="infoForm">
+      @if(userData){
+        <ion-list lines="none">
+
+          <ion-item>
+            <ion-input
+              class="border-bottom rounded-4 px-3 my-1 opacity-05"
+              label="Tradeline Number"
+              formControlName="id"
+              [readonly]="true"
+              >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              class="border-bottom rounded-4 px-3 my-2"
+              label="First Name"
+              placeholder="Enter First Name"
+              formControlName="firstname"
+              [readonly]="!editMode"
+              [class.opacity-05]="!editMode"
+              >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              class="border-bottom rounded-4 px-3 my-2"
+              label="Last Name"
+              placeholder="Enter Last Name"
+              formControlName="lastname"
+              [readonly]="!editMode"
+              [class.opacity-05]="!editMode"
+              >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              class="border-bottom rounded-4 px-3 my-2"
+              label="Account Email"
+              placeholder="Enter Your Email"
+              type="email"
+              formControlName="email"
+              [readonly]="!editMode"
+              [class.opacity-05]="!editMode"
+              >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              class="border-bottom rounded-4 px-3 my-2"
+              label="Phone Number"
+              placeholder="Enter Phone Number"
+              type="tel"
+              formControlName="phone"
+              [readonly]="!editMode"
+              [class.opacity-05]="!editMode"
+              >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              class="border-bottom rounded-4 px-3 my-2"
+              label="Password"
+              type="password"
+              placeholder="************"
+              formControlName="password"
+              [readonly]="!editMode"
+              [class.opacity-05]="!editMode"
+              >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              class="border-bottom rounded-4 px-3 my-2"
+              label="Address"
+              placeholder="Enter Your Address"
+              formControlName="address"
+              [readonly]="!editMode"
+              [class.opacity-05]="!editMode"
+              >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              class="border-bottom rounded-4 px-3 my-2"
+              label="Address2"
+              placeholder="Enter Your Second Address"
+              formControlName="address2"
+              [readonly]="!editMode"
+              [class.opacity-05]="!editMode"
+              >
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input
+              class="border-bottom rounded-4 px-3 my-2"
+              label="City"
+              placeholder="Enter Your City"
+              formControlName="city"
+              [readonly]="!editMode"
+              [class.opacity-05]="!editMode"
+              >
+            </ion-input>
+          </ion-item>
+
+          <!-- أزرار Edit / Save -->
+          <div class="ion-padding">
+            @if(!editMode){
+              <ion-button class="main-btn mx-auto" expand="block" (click)="toggleEdit()">Edit</ion-button>
+            }
+            @if(editMode){
+              <ion-button  class="main-btn mx-auto" expand="block"(click)="submitUpdate()">Save</ion-button>
+            }
+            @if(editMode){
+              <ion-button class="w-75 mx-auto mt-3" fill="clear" expand="block" (click)="submitUpdate()">Cancel</ion-button>
+            }
+          </div>
+
+        </ion-list>
+      }
+    </form>
+  </div>
+</ion-content>

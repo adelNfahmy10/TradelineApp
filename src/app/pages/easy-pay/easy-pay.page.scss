@@ -1,0 +1,53 @@
+ion-select {
+  --placeholder-color: #00723C; /* لون placeholder */
+  --color: #00723C;             /* لون النص */
+  --highlight-color: transparent; /* منع ظهور الخط الأخضر عند الاختيار */
+  --background: transparent;      /* إذا في خلفية */
+  --border-width: 0;              /* إزالة أي حدود */
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  width: fit-content;
+
+  &::part(text) {
+    padding-right: 80px;
+  }
+}
+
+ion-select::part(text) {
+  color: #00723C;
+  font-weight: bold;
+}
+ion-select::part(label) {
+  color: #888;
+  font-size: 14px;
+}
+
+.tadeInDesc{
+  font-size: 14px;
+  text-align: justify;
+}
+
+.optionTradein{
+  transition: all .3s;
+  img{
+    width: 100px;
+  }
+  &.active {
+    box-shadow: 0 0 5px #00723C;
+    color: #00723C;
+    font-weight: 600;
+    border-radius: 15px;
+  }
+}
+
+.symbol{
+  color: #00723C;
+  font-weight: 600;
+  margin: 5px 0;
+}
+
+.terms-list{
+  img{
+    width: 30px;
+  }
+}
+

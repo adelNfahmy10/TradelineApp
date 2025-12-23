@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center justify-content-between px-3 py-4 w-100">
+
+      <!-- Left Icon -->
+      <ion-icon name="person-circle-outline" color="success" class="icon-toolbar"></ion-icon>
+
+      <!-- Title -->
+      <h1 class="m-0 flex-grow-1 text-center h1 text-black fw-bold">Notifications</h1>
+
+      <!-- Right Icon -->
+      <ion-icon name="search-outline" color="success" class="icon-toolbar"></ion-icon>
+
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    @for (notification of notifications(); track $index) {
+      <ion-item>
+        <ion-avatar class="d-flex justify-content-center align-items-start h-100" slot="start">
+          <ion-icon name="notifications-outline"></ion-icon>
+        </ion-avatar>
+
+        <ion-label>
+          <h4>{{notification.title}}</h4>
+          <p>{{notification.text}}</p>
+          <span>{{notification.time | date}}</span>
+        </ion-label>
+      </ion-item>
+    } @empty {
+      <h4 class="text-center">There are no notifications yet!</h4>
+    }
+  </ion-list>
+</ion-content>

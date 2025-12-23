@@ -1,0 +1,20 @@
+.img-toolbar {
+  width: 200px;
+}
+ion-list {
+  .support-item {
+    --border-color: #ccc;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    img {
+      max-width: 300px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    &:hover {
+      transform: scale(1.01); /* يكبر الصورة */
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* ظل خفيف */
+    }
+  }
+}

@@ -1,0 +1,304 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button defaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">Shop</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <div class="slider-images">
+     <swiper-container class="mySwiper" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" thumbs-swiper=".mySwiper2" space-between="10" navigation="false" pagination="false">
+        @for (img of sliderImages; track $index) {
+          <swiper-slide>
+            <img loading="lazy" [src]="img" [alt]="selectedVariant?.color.name" />
+          </swiper-slide>
+        }
+      </swiper-container>
+
+      <swiper-container class="mySwiper2" space-between="10" slides-per-view="4" free-mode="true" watch-slides-progress="true">
+        @for (img of sliderImages; track $index) {
+          <swiper-slide>
+            <img loading="lazy" [src]="img" [alt]="selectedVariant?.color.name" />
+          </swiper-slide>
+        }
+      </swiper-container>
+    </div>
+
+    <div class="product-info text-center">
+      <h3 class="product-name main-color fw-bold">
+        {{productDetails?.name}}
+      </h3>
+
+      <div class="colors-picker d-flex justify-content-center align-items-center gap-2 my-3">
+
+        @if(!selectedCapacity) {
+          @for (variant of availableColors; track $index) {
+            <div
+              class="color-circle"
+              [style.backgroundColor]="'#' + variant.color.color_hex_code"
+              [class.selected]="selectedVariant?.id === variant.id"
+              [class.out-of-stock]="!variant.in_stock"
+              (click)="variant.in_stock ? selectVariant(variant) : null"
+              [title]="variant.color.name"
+            >
+              @if(!variant.in_stock){
+                <div class="slash"></div>
+              }
+            </div>
+          }
+        }
+
+        @if(selectedCapacity) {
+          @for (variant of availableColors; track $index) {
+            <div
+              class="color-circle"
+              [style.backgroundColor]="'#' + variant.color.color_hex_code"
+              [class.selected]="selectedVariant?.id === variant.id"
+              [class.out-of-stock]="!variant.in_stock"
+              (click)="selectColor(variant)"
+              [title]="variant.color.name"
+            >
+              @if(!variant.in_stock){
+                <div class="slash"></div>
+              }
+            </div>
+          }
+        }
+      </div>
+
+      @if(selectedScreenSize){
+        <p class="my-3 text-muted size-msg p-2 rounded-2">
+          {{ selectedScreenSize }}
+        </p>
+      }
+
+      <hr>
+
+      <div class="capacities row justify-content-center g-3 mb-4 mt-1">
+        @for(cap of capacities; track $index){
+          <div class="col-3">
+            <p
+              class="capacity-btn px-2 py-2 m-0"
+              [class.active]="selectedCapacity?.id === cap.id"
+              [class.out-of-stock-cap]="cap.out_of_stock"
+              (click)="selectCapacity(cap)"
+            >
+              {{ cap.name }}
+            </p>
+          </div>
+        }
+      </div>
+
+
+      <hr>
+
+      <div class="price my-3 p-3 rounded-4">
+        @if(selectedPaymentType == 'full'){
+          <h4 class="main-color fw-bold m-0">{{ displayedPrice | number }} EGP <sup class="price-stock ms-3">{{selectedVariant?.in_stock ? 'In Stock' : 'Out Of Stock'}}</sup></h4>
+        } @else if(selectedPaymentType == 'installments'){
+          <p class="text-muted m-0">
+            To know the available installment offers in our branches, please contact us at
+            <a class="main-color fw-bold" href="tel:19857">19857</a>.
+          </p>
+        }
+      </div>
+
+      <hr>
+
+      @if(out_of_stock && selectedPaymentType == 'full'){
+        <p class="notify-msg main-color mt-3">
+          This Product Is Currently Out Of Stock, Click 'Notify Me' To Get Noticed Once It Is Back In Stock.
+        </p>
+      }
+
+      <div class="pay-method my-3">
+        <ul class="pay-list list-unstyled d-flex justify-content-center align-items-center gap-3">
+          <li class="item cr" [class.active]="selectedPaymentType == 'full'" (click)="switchPayType('full')"> <i class="fas fas fa-wallet me-1"></i> Pay Full</li>
+          <li class="item cr" [class.active]="selectedPaymentType == 'installments'" (click)="switchPayType('installments')"> <i class="fas fa-clock me-1"></i> Pay Letter</li>
+        </ul>
+      </div>
+
+
+
+      <!-- @if(out_of_stock && displayedPrice) {
+        <div class="of-stock-msg p-3 rounded-4 my-4">
+          <h4 class="text-danger fw-bold">Out of Stock Online</h4>
+          <p class="main-color">This product is currently out of stock online Only, To confirm its availability at a branch.</p>
+          <p class="main-color">Please contact the call center <a class="fw-bold main-color" href="tel:19857">19857</a> to make a reservation</p>
+        </div>
+      } -->
+
+      <!-- @if(!out_of_stock && displayedPrice){
+        <div class="price my-3">
+          @if(selectedPaymentType == 'full'){
+            @if(!out_of_stock){
+              <h4 class="main-color fw-bold">{{ displayedPrice | number }} EGP</h4>
+            }
+          } @else if(selectedPaymentType == 'installments'){
+            <p class="text-muted">
+              To know the available installment offers in our branches, please contact us at
+              <a class="main-color fw-bold" href="tel:19857">19857</a>.
+            </p>
+          }
+        </div>
+      } @else if(out_of_stock && displayedPrice) {
+        <div class="of-stock-msg p-3 rounded-4 my-4">
+          <h4 class="text-danger fw-bold">Out of Stock Online</h4>
+          <p class="main-color">This product is currently out of stock online Only, To confirm its availability at a branch.</p>
+          <p class="main-color">Please contact the call center <a class="fw-bold main-color" href="tel:19857">19857</a> to make a reservation</p>
+        </div>
+      } -->
+
+      @if(!out_of_stock && displayedPrice && selectedPaymentType == 'full'){
+        <div class="btn-cart mb-3 position-sticky z-3">
+          <ion-button class="main-btn">Add To Cart</ion-button>
+        </div>
+      } @else {
+        <div class="btn-cart mb-3 position-sticky z-3">
+          <ion-button class="main-btn">Notify Me!</ion-button>
+        </div>
+      }
+
+      <hr>
+    </div>
+
+    <div class="product-details">
+      <ion-accordion-group>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="white">
+            <ion-label>Overview</ion-label>
+          </ion-item>
+          <div class="overview ion-padding" slot="content">
+            @for (o of productDetails?.overview_blocks; track $index) {
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12">
+                    <h6 class="fw-bold">
+                      {{ o.title }}
+                    </h6>
+                    <p class="text-muted">
+                      {{ o.text }}
+                    </p>
+                  </ion-col>
+                  <ion-col size="12" class="ion-text-center">
+                    <img loading="lazy" [src]="o.picture" [alt]="o.picture_alt" [title]="o.picture_alt" width="100%" loading="lazy"/>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            }
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="second">
+          <ion-item slot="header" color="white">
+            <ion-label>Specifications</ion-label>
+          </ion-item>
+          <div class="specifications ion-padding" slot="content">
+            @for (o of productDetails?.spec; track $index) {
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12">
+                    <h6 class="fw-bold">
+                      {{ o.title }} :
+                    </h6>
+                    <p class="text-muted">
+                      {{ o.value }}
+                    </p>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            }
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="third">
+          <ion-item slot="header" color="white">
+            <ion-label>Accessories</ion-label>
+          </ion-item>
+          <div class="accessories ion-padding" slot="content">
+            <ion-grid>
+              <ion-row class="ion-justify-content-start ion-align-items-start">
+                @for (accessories of productDetails?.accessories; track $index) {
+                <ion-col size="12" class="ion-padding h-100 rounded-4">
+                  <ion-card class="item h-100 text-center h-100 rounded-4 p-3">
+                    <div>
+                      <img loading="lazy"
+                        [src]="
+                          accessories?.selectedProp
+                            ? accessories?.selectedProp?.color?.picture
+                            : accessories?.picture1
+                        "
+                        [alt]="
+                          accessories?.selectedProp
+                            ? accessories?.selectedProp?.color?.picture_alt
+                            : accessories?.picture1_alt
+                        "
+                        [title]="
+                          accessories?.selectedProp
+                            ? accessories?.selectedProp?.color?.picture_alt
+                            : accessories?.picture1_alt
+                        "
+                        class="img-fluid pin"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    <h6 class="fw-bold">{{ accessories.name }}</h6>
+
+                    <span class="main-color fs-5 fw-bold my-2 d-inline-block">
+                      {{ accessories.price | number }} EGP
+                    </span>
+
+                    <div class="btn-cart">
+                      <ion-button class="main-btn">Add To Cart</ion-button>
+                    </div>
+
+                  </ion-card>
+                </ion-col>
+                }
+              </ion-row>
+
+            </ion-grid>
+          </div>
+        </ion-accordion>
+
+        <ion-accordion value="fourth">
+          <ion-item slot="header" color="white">
+            <ion-label>Compare</ion-label>
+          </ion-item>
+          <div class="compare ion-padding" slot="content">
+            <ion-grid>
+              <ion-row class="ion-justify-content-start ion-align-items-start">
+                @for (compare of productDetails?.comparison_products; track $index) {
+                <ion-col size="12" class="ion-padding h-100 rounded-4">
+                  <ion-card class="item h-100 text-center h-100 rounded-4 p-3">
+                    <div>
+                      <img loading="lazy" [src]="compare?.picture1" [alt]="compare?.picture1_alt" [title]="compare?.picture1_alt"
+                        class="img-fluid pin"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    <h6 class="fw-bold">{{ compare.name }}</h6>
+
+                    <span class="main-color fs-5 fw-bold my-2 d-inline-block">
+                      {{ compare.price | number }} EGP
+                    </span>
+                  </ion-card>
+                </ion-col>
+                }
+              </ion-row>
+
+            </ion-grid>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </div>
+  </div>
+</ion-content>

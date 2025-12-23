@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button defaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">VR (Visit)</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+    <iframe
+      class="w-100 h-100"
+      src="https://my.matterport.com/show/?m=mSFaqsDq6cM&play=1"
+      allowfullscreen="true"
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"
+      allowvr="yes"
+      allow="vr; xr; accelerometer; gyroscope; autoplay;">
+      <p>Your browser doesnt support iframes</p>
+    </iframe>
+  </div>
+</ion-content>

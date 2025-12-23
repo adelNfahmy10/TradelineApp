@@ -1,0 +1,106 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button efaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">Orders</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="orders">
+    <ion-list>
+      @for (o of allOrders; track o.id) {
+        <ion-item class="order-item">
+
+          <ion-grid>
+            <ion-row>
+
+              <!-- Products -->
+              <ion-col size="7">
+                @for (item of o.orderproducts; track item.id ?? $index) {
+                  <ion-row class="product-row">
+
+                    <ion-col size="5">
+                      <ion-img
+                        class="product-img"
+                        [src]="item.product_property?.color?.picture || item.picture"
+                        loading="lazy">
+                      </ion-img>
+                    </ion-col>
+
+                    <ion-col size="7">
+                      <div class="name">{{ item.product?.name }}</div>
+
+                      @if (item.product_property?.capacity) {
+                        <div>{{ item.product_property.capacity.name }}</div>
+                      }
+
+                      @if (item.product_property?.color) {
+                        <div>{{ item.product_property.color.name }}</div>
+                      }
+
+                      <div>Qty: {{ item.quantity }}</div>
+                    </ion-col>
+
+                  </ion-row>
+                }
+              </ion-col>
+
+              <!-- Order Info -->
+              <ion-col size="5" class="order-info">
+                <div class="price">{{ o.total | number }} EGP</div>
+                <div class="date">{{ o.date_placed | date:'dd.MM.yyyy' }}</div>
+                <div>Order ID: #{{ o.id }}</div>
+
+                <div class="payment">
+                  {{ getPaymentMethod(o.payment_method) }}
+                </div>
+
+                @if (canCancel(o.status)) {
+                  <div class="status-text">
+                    <span>{{ o.status }}</span>
+                    <span
+                      class="cancel"
+                      role="button"
+                      (click)="confirmCancel(o.id)">
+                      Cancel
+                    </span>
+                  </div>
+                }
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+
+          <!-- Status Image -->
+          @if (!isCanceled(o.status)) {
+            <div class="status">
+              <ion-img
+                class="status-img"
+                [src]="getStatusImage(o.status)">
+              </ion-img>
+            </div>
+          }
+
+          <!-- Canceled Text -->
+          @if (o.status === 'Canceled') {
+            <h5 class="text-danger text-center">
+              Cancelled
+            </h5>
+          }
+
+        </ion-item>
+      } @empty {
+        <p class="text-center my-3 msg-empty">You don't have place any order yet.</p>
+      }
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-footer class="py-2 shadow-none bg-transparent">
+  <ion-button expand="block" class="main-btn mx-auto" routerLink="/delivery">Shipping / Delivery instruction</ion-button>
+</ion-footer>

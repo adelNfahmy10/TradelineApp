@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  baseUrl: "https://tradelineserver.bit68.com/rest_api/",
   production: false
 };
 

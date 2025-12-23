@@ -1,0 +1,21 @@
+ion-checkbox {
+  --checkbox-background: #fff;            /* قبل التحديد → أبيض */
+  --checkbox-background-checked: #00a359; /* بعد التحديد → بنفسجي */
+  --border-color: #00a359;                /* لون البوردر */
+  --checkmark-color: #fff;               /* لون الصح بعد التحديد */
+  --label-spacing: 3px;
+}
+
+ion-checkbox::part(container) {
+  border-radius: 6px;
+  border: 2px solid #00a359;
+}
+
+ion-checkbox::part(label) {
+  margin-left: 6px;
+}
+
+.custom-segment ion-segment-button {
+  --color: #222 !important;
+  --color-checked: #00a359;
+}

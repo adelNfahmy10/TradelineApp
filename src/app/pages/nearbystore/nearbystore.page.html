@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button defaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">Nearby Stores</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="p-2">
+    @for (store of stores(); track $index) {
+      <ion-card class="mb-4 rounded-4">
+        <img loading="lazy"
+          [src]="store.picture"
+          class="img_premuim"
+          loading="lazy"
+          [alt]="store.picture_alt || (store.name_ar ? store.name_ar : store.name_en)"
+        />
+
+        <ion-card-header>
+          <ion-card-title>
+            <h2 class="text-dark">{{ store.name }}</h2>
+          </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content (click)="openMap(store.coordinates)" >
+          <div class="d-flex align-items-center gap-2">
+            <ion-icon class="fs-2" color="success"name="location" slot="start"></ion-icon>
+
+            <div class="store-details">
+              <span>{{ store.city }}</span>
+
+              @if (store.distance) {
+                <span>
+                  - {{ store.distance | number:'1.2-2' }} Km away
+                </span>
+              }
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    }
+  </div>
+</ion-content>

@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button efaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <div class="toolbar-center">
+        <img src="assets/images/tvc-history-images/tvc_new.png" alt="Logo">
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="history p-3">
+    <div class="header-history shadow-sm p-3 rounded-3">
+      <h2 class="text-center mb-4 main-color fw-bold">History</h2>
+      <h5>Name : <span class="main-color">{{userName}}</span></h5>
+      <h5>Total Points: <span class="main-color">{{points}}</span></h5>
+    </div>
+
+
+    <!-- Table Header -->
+    <ion-row class="ion-text-bold ion-padding-vertical header-table">
+      <ion-col size="3">
+        <span>Invoice Number</span>
+      </ion-col>
+      <ion-col size="3">
+        <span>Points</span>
+      </ion-col>
+      <ion-col size="3">
+        <span>Redeemed Points</span>
+      </ion-col>
+      <ion-col size="3" class="ion-text-center">
+        <span>Status</span>
+      </ion-col>
+    </ion-row>
+
+    <!-- Table Data -->
+    @for (item of history; track $index) {
+      <ion-row class="ion-padding-vertical body-table">
+        <ion-col size="3">
+          <span>{{ item.LoyaltyCardsInvoiceNumber }}</span>
+        </ion-col>
+        <ion-col size="3">
+          <span>{{ item.LoyaltyCardsInvoicePoints }}</span>
+        </ion-col>
+        <ion-col size="3">
+          <span>{{ item.LoyaltyCardsInvoiceRedeemedPoints }}</span>
+        </ion-col>
+        <ion-col size="3" class="ion-text-center">
+          <span>
+            {{ item.LoyaltyCardsInvoicePointsStatus }}<br>
+            {{ item.ValidationDate | date:'dd.MM.yyyy' }}
+          </span>
+        </ion-col>
+      </ion-row>
+    } @empty {
+      <p class="text-center my-3">History is Empty</p>
+    }
+  </div>
+</ion-content>

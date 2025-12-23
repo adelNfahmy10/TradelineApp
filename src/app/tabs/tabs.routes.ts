@@ -3,34 +3,45 @@ import { TabsPage } from './tabs.page';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'tabs/explore',
+    pathMatch: 'full',
+  },
+  {
     path: 'tabs',
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'explore',
         loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+          import('../pages/explore/explore.page').then(m => m.ExplorePage)
       },
       {
-        path: 'tab2',
+        path: 'shop',
         loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+          import('../pages/shop/shop.page').then(m => m.ShopPage)
       },
       {
-        path: 'tab3',
+        path: 'notification',
         loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+          import('../pages/notification/notification.page').then(m => m.NotificationPage)
+      },
+      {
+        path: 'cart',
+        loadComponent: () =>
+          import('../pages/cart/cart.page').then(m => m.CartPage)
+      },
+      {
+        path: 'support',
+        loadComponent: () =>
+          import('../pages/support/support.page').then(m => m.SupportPage)
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full',
-      },
+        redirectTo: 'explore',
+        pathMatch: 'full'
+      }
     ],
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full',
-  },
+  }
 ];
+

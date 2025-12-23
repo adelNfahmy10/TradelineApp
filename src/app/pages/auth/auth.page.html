@@ -1,0 +1,108 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header text-center pt-4">
+      <img loading="lazy" src="/assets/images/auth-img/tr.png" class="w-75" alt="tradeline">
+      <ion-segment class="mt-4 custom-segment" value="login" (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="login" content-id="login">
+          Login
+        </ion-segment-button>
+
+        <ion-segment-button value="SignUp" content-id="SignUp">
+          SignUp
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-segment-view>
+    <ion-segment-content id="login">
+      <div class="login text-center p-3">
+        <h2 class="fw-bold">Welcome To Tradeline</h2>
+
+        <form [formGroup]="loginForm">
+          <ion-list lines="none">
+            <ion-item>
+              <ion-input formControlName="username" class="shadow-sm border rounded-5 px-3 py-1" type="email" placeholder="email@domain.com"></ion-input>
+            </ion-item>
+
+            <ion-item class="my-3">
+              <ion-input formControlName="password" class="shadow-sm border rounded-5 px-3" type="password" placeholder="Password">
+                <ion-input-password-toggle color="success" class="p-0" slot="end"></ion-input-password-toggle>
+              </ion-input>
+            </ion-item>
+
+            <ion-checkbox labelPlacement="end" justify="start" class="mx-4 my-2">Remember Me</ion-checkbox>
+
+            <ion-button class="main-btn my-3" (click)="submitLogin()">Login</ion-button>
+
+            <p class="text-start mx-4 my-2">Forget Password?</p>
+          </ion-list>
+        </form>
+
+        <hr />
+
+        <div class="social-icon d-flex justify-content-center align-items-center gap-2">
+          <i class="fa-brands fa-facebook-f main-color fs-5"></i>
+          <i class="fa-brands fa-x-twitter main-color fs-5"></i>
+          <i class="fa-solid fa-envelope main-color fs-5"></i>
+        </div>
+      </div>
+
+      <div class="text-center main-color d-flex justify-content-center align-items-center gap-1 mt-4" routerLink="/tabs/explore">
+        <span>Skip</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    </ion-segment-content>
+
+
+    <ion-segment-content id="SignUp">
+      <div class="signup text-center p-3">
+        <h2 class="fw-bold">Welcome To Tradeline</h2>
+
+        <form [formGroup]="signupForm">
+          <ion-list lines="none" class="d-flex flex-column justify-content-center align-items-center gap-3 ">
+            <ion-item class="w-100">
+              <ion-input formControlName="fName" class="shadow-sm border rounded-5 px-3 py-1" type="text" placeholder="First Name"></ion-input>
+            </ion-item>
+
+            <ion-item class="w-100">
+              <ion-input formControlName="lName" class="shadow-sm border rounded-5 px-3 py-1" type="text" placeholder="Last Name"></ion-input>
+            </ion-item>
+
+            <ion-item class="w-100">
+              <ion-input formControlName="email" class="shadow-sm border rounded-5 px-3 py-1" type="email" placeholder="Email"></ion-input>
+            </ion-item>
+
+            <ion-item class="w-100">
+              <ion-input formControlName="phone" class="shadow-sm border rounded-5 px-3 py-1" type="phone" placeholder="Mobile Number"></ion-input>
+            </ion-item>
+
+            <ion-item class="w-100">
+              <ion-input formControlName="password" class="shadow-sm border rounded-5 px-3" type="password" placeholder="Password">
+                <ion-input-password-toggle color="success" class="p-0" slot="end"></ion-input-password-toggle>
+              </ion-input>
+            </ion-item>
+
+            <ion-item class="w-100">
+              <ion-input formControlName="rePassword" class="shadow-sm border rounded-5 px-3" type="password" placeholder="Re-Password">
+                <ion-input-password-toggle color="success" class="p-0" slot="end"></ion-input-password-toggle>
+              </ion-input>
+            </ion-item>
+
+            <ion-button class="main-btn" (click)="submitSignup()">Sign Up</ion-button>
+
+            <p>By signing up, you agree with our <a href="">Terms & Conditions</a> </p>
+          </ion-list>
+        </form>
+      </div>
+
+      <div class="text-center main-color d-flex justify-content-center align-items-center gap-1 mb-3" routerLink="/tabs/explore">
+        <span>Skip</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+    </ion-segment-content>
+  </ion-segment-view>
+</ion-content>

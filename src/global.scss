@@ -9,6 +9,8 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+@import 'ngx-toastr/toastr';
+
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
@@ -35,3 +37,83 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+$main-color: #00a359;
+$second-color: #017943;
+
+/* Custom Global Styles */
+*{
+  transition: all .3s;
+}
+body {
+  --ion-background-color: #fff;
+  --ion-text-color: #000000;
+}
+
+ion-header {
+  --ion-background-color: $main-color;
+  --ion-text-color: #ffffff;
+}
+ion-toolbar {
+  --ion-background-color: $main-color;
+  --ion-text-color: #ffffff;
+}
+ion-title {
+  font-weight: 600;
+}
+.tool-header{
+  background-color: #eee;
+}
+ion-card{
+  --background: #fff;
+  --color: #000;
+}
+ion-tabs {
+  --background: #fff;
+  --color: #222;
+  --color-selected: $main-color;
+}
+
+ion-tab-bar {
+  --background: #fff;
+  --color: #222;
+  --color-selected: $main-color;
+  --border: none;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  height: 70px;
+}
+
+ion-list {
+  --color: #222 !important;
+  background: #fff !important;
+}
+ion-item {
+  --background: #fff;
+  --color: #222;
+  transition: all .3s;
+}
+
+.main-color{
+  color: $main-color !important;
+}
+
+a{
+  text-decoration: none !important;
+}
+
+p{
+  margin: 0 !important;
+}
+
+.icon-toolbar{
+  font-size: 40px !important;
+}
+
+.main-btn {
+  --background: #017943;
+  --color: #fff;
+  --border-radius: 20px;
+  width: 75%;
+}

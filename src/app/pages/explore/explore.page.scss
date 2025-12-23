@@ -1,0 +1,24 @@
+$mainColor: #067342;
+
+.image-offer, .image-cat{
+  box-shadow: 0 0 5px #eee;
+}
+ion-card{
+  box-shadow: 0 0 5px #eee;
+}
+ion-card-title{
+  font-size: 14px;
+  font-weight: 600;
+  color: $mainColor;
+}
+ion-card-subtitle{
+  font-size: 12px;
+}
+ion-searchbar.custom {
+  --border-radius: 20px !important;
+}
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

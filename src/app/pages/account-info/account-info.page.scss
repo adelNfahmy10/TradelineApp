@@ -1,0 +1,13 @@
+$main-color: #00a359;
+$second-color: #017943;
+
+.opacity-05 {
+  opacity: .5;
+}
+ion-label{
+  --color : red !important
+}
+
+::ng-deep ion-input .label-text{
+  color: $main-color;
+}

@@ -1,0 +1,55 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button defaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">Call Back</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="p-4">
+    <h3>Fill in the below to request a call back</h3>
+    <form [formGroup]="callbackForm" (ngSubmit)="submitCallbackForm()">
+      <ion-list lines="none">
+        <ion-item class="shadow-sm mb-3 rounded-4">
+          <ion-textarea formControlName="description" placeholder="Describe your technical issue" rows="5">
+          </ion-textarea>
+        </ion-item>
+
+        <ion-item class="shadow-sm mb-3 rounded-4">
+          <ion-input formControlName="name" placeholder="Full Name">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="shadow-sm mb-3 rounded-4">
+          <ion-input formControlName="phone" placeholder="Phone Number" type="tel">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="shadow-sm mb-3 rounded-4">
+          <ion-input formControlName="email" placeholder="Email Address" type="email">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="shadow-sm mb-3 rounded-4">
+          <ion-input formControlName="serial" placeholder="Serial Number">
+          </ion-input>
+        </ion-item>
+
+        <ion-item class="shadow-sm mb-3 rounded-4">
+          <ion-textarea formControlName="details" placeholder="Device Details" rows="5">
+          </ion-textarea>
+        </ion-item>
+
+        <button class="btn btn-success w-100 rounded-4 py-2 mt-3" [disabled]="callbackForm.invalid">
+          Book Now!
+        </button>
+      </ion-list>
+    </form>
+  </div>
+</ion-content>

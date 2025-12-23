@@ -1,1 +1,31 @@
+$main-color: #00a359;
+$second-color: #017943;
 
+ion-icon {
+  font-size: 35px !important;
+}
+
+ion-tab-button {
+  --color: #666;
+  --color-selected: #cccccc33;
+  --color-selected: #00a359;
+
+  &:hover {
+    --color: #00a359 !important;
+  }
+}
+
+.tab-selected {
+  --color: #00a359 !important;
+}
+.img-toolbar {
+  width: 200px;
+}
+
+.menu-lable{
+  transition: all .3s;
+  font-size: 14px;
+  &:hover{
+    background-color: #cccccc33;
+  }
+}

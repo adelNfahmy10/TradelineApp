@@ -1,0 +1,167 @@
+<ion-content [fullscreen]="true">
+  <!-- Offers Banners Section -->
+  <div class="offer-banners px-3 py-2">
+    <h2 class="fw-bold m-0 mt-2">Offers</h2>
+
+    <swiper-container class="mySwiper w-100 h-100" slides-per-view="2"
+    space-between="10" free-mode="true">
+      @if(offerBanners().length > 0) {
+        @for (offer of offerBanners(); track $index) {
+          <swiper-slide [routerLink]="'/product/' + offer.product" class="d-flex justify-content-center align-items-center text-center py-4 rounded-3">
+            <div class="image-offer rounded-3">
+              <img loading="lazy" class="rounded-3 w-100 h-100 object-fit-cover" [src]="offer.mobile_picture" [alt]="offer.title">
+            </div>
+          </swiper-slide>
+        }
+      }
+    </swiper-container>
+  </div>
+
+  <!-- Categories Banners Section -->
+  <div class="categories-banners px-3 py-2">
+    <h2 class="fw-bold m-0 mt-2">Categories</h2>
+
+    <swiper-container class="mySwiper" slides-per-view="2"
+    space-between="10" free-mode="true">
+      @if(categoriesBanners().length > 0) {
+        @for (cat of categoriesBanners(); track $index) {
+          <swiper-slide class="d-flex justify-content-center align-items-center text-center py-2 rounded-3"[routerLink]="'/categories/' + cat.seo_slug">
+            <div class="image-cat rounded-3">
+              <img loading="lazy" class="rounded-3" [src]="cat.picture" [alt]="cat.title">
+            </div>
+          </swiper-slide>
+        }
+      }
+    </swiper-container>
+  </div>
+
+  <!-- List Content App -->
+  <div class="tvs-image">
+    <img loading="lazy" src="/assets/images/explore-images/tvc-banner-new2.png" alt="tvc" class="tvs w-100 h-100">
+  </div>
+
+  <div class="list-cards">
+    <ion-card class="rounded-4" routerLink="/premuim">
+      <ion-card-header>
+        <div class="row g-3">
+          <div class="col-2">
+            <div class="icon-card d-flex justify-content-center align-items-center h-100 w-100">
+              <img loading="lazy" src="/assets/images/explore-images/premuim1.png" class="w-100" alt="premuim">
+            </div>
+          </div>
+
+          <div class="col-10">
+            <div class="title-card d-flex flex-column justify-content-center h-100">
+              <ion-card-title>TRADELINE PREMUIM CARD</ion-card-title>
+              <ion-card-subtitle class="text-dark mt-1">Click here to find your nearest location</ion-card-subtitle>
+            </div>
+          </div>
+        </div>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="rounded-4" routerLink="/easy-pay">
+      <ion-card-header>
+        <div class="row g-3">
+          <div class="col-2">
+            <div class="icon-card d-flex justify-content-center align-items-center h-100 w-100">
+              <img loading="lazy" src="/assets/images/explore-images/ICONS-18.png" class="w-100" alt="TRADE">
+            </div>
+          </div>
+
+          <div class="col-10">
+            <div class="title-card d-flex flex-column justify-content-center h-100">
+              <ion-card-title>TRADE IN CALCULATOR</ion-card-title>
+              <ion-card-subtitle class="text-dark mt-1">Trade in your old product for a new iPhone</ion-card-subtitle>
+            </div>
+          </div>
+        </div>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="rounded-4" routerLink="/callback">
+      <ion-card-header>
+        <div class="row g-3">
+          <div class="col-2">
+            <div class="icon-card d-flex justify-content-center align-items-center h-100 w-100">
+              <img loading="lazy" src="/assets/images/explore-images/ICONS-19.png" class="w-100" alt="CALL">
+            </div>
+          </div>
+
+          <div class="col-10">
+            <div class="title-card d-flex flex-column justify-content-center h-100">
+              <ion-card-title>CALL BACK SERVICE</ion-card-title>
+              <ion-card-subtitle class="text-dark mt-1">Get the support team to call you back!</ion-card-subtitle>
+            </div>
+          </div>
+        </div>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="rounded-4" routerLink="/nearbystore">
+      <ion-card-header>
+        <div class="row g-3">
+          <div class="col-2">
+            <div class="icon-card d-flex justify-content-center align-items-center h-100 w-100">
+              <img loading="lazy" src="/assets/images/explore-images/ICONS-20.png" class="w-100" alt="STORES">
+            </div>
+          </div>
+
+          <div class="col-10">
+            <div class="title-card d-flex flex-column justify-content-center h-100">
+              <ion-card-title>NEARBY STORES</ion-card-title>
+              <ion-card-subtitle class="text-dark mt-1">Find your nearest Tradeline store</ion-card-subtitle>
+            </div>
+          </div>
+        </div>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="rounded-4" routerLink="/vr-store">
+      <ion-card-header>
+        <div class="row g-3">
+          <div class="col-2">
+            <div class="icon-card d-flex justify-content-center align-items-center h-100 w-100">
+              <img loading="lazy" src="/assets/images/explore-images/ICONS-21.png" class="w-100" alt="VISIT">
+            </div>
+          </div>
+
+          <div class="col-10">
+            <div class="title-card d-flex flex-column justify-content-center h-100">
+              <ion-card-title>VISIT OUR STORE (VR)</ion-card-title>
+              <ion-card-subtitle class="text-dark mt-1">Experience our virtual reality shop</ion-card-subtitle>
+            </div>
+          </div>
+        </div>
+
+      </ion-card-header>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-modal #modal trigger="open-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+  <ng-template>
+    <ion-content>
+      <ion-searchbar
+      placeholder="Search"
+      [debounce]="500"
+      (ionInput)="search($event)"
+      (ionCancel)="clearSearch()"
+      (ionClear)="clearSearch()"
+      show-cancel-button="focus"
+      color="dark"
+      (click)="modal.setCurrentBreakpoint(0.75)"></ion-searchbar>
+
+      <ion-list>
+        @for (product of searchResults; track $index) {
+          <ion-item>
+            <ion-label>
+              <h2>{{product.name}}</h2>
+            </ion-label>
+          </ion-item>
+        }
+      </ion-list>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>

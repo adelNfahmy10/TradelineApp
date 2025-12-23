@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button defaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">Premuim Card</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="premuim-page p-3">
+    <h2 class="fs-4 fw-bold mb-3">Get all the amazing Tradeline Premium Card benefits now:</h2>
+    <p class="m-0 text-muted">- Installment up to 40 months with ZERO interest</p>
+    <p class="m-0 text-muted">- Double TVC Points</p>
+    <p class="m-0 text-muted">- Exclusive Pre-Order access</p>
+    <p class="m-0 text-muted">*Terms & conditions apply</p>
+
+    <h2 class="fs-4 fw-bold my-3">Locations : </h2>
+  </div>
+
+  @for (store of stores().slice(0, 10); track $index) {
+    <ion-card class="mb-4 rounded-4">
+      <img loading="lazy"
+        [src]="store.picture"
+        class="img_premuim"
+        loading="lazy"
+        [alt]="store.picture_alt || (store.name_ar ? store.name_ar : store.name_en)"
+      />
+
+      <ion-card-header>
+        <ion-card-title>
+          <h2 class="text-dark">{{ store.name }}</h2>
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content (click)="openMap(store.coordinates)" >
+        <div class="d-flex align-items-center gap-2">
+          <ion-icon class="fs-2" color="success"name="location" slot="start"></ion-icon>
+
+          <div class="store-details">
+            <span>{{ store.city }}</span>
+
+            @if (store.distance) {
+              <span>
+                - {{ store.distance | number:'1.2-2' }} Km away
+              </span>
+            }
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  } @empty {
+    <p class="fs-6 fw-bold text-center text-success border border-1 border-primary p-3 mx-3 my-0">
+      Please make sure your location is enabled.<br>
+      Loading nearby stores…
+    </p>
+  }
+
+</ion-content>

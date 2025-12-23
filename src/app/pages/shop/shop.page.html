@@ -1,0 +1,39 @@
+<ion-content [fullscreen]="true">
+  <ion-card class="rounded-4">
+      <ion-card-header>
+        <div class="row g-2">
+          <div class="col-11">
+            <div class="title-card d-flex flex-column justify-content-center h-100">
+              <ion-card-title class="fs-6">Find nearest store</ion-card-title>
+            </div>
+          </div>
+
+          <div class="col-1">
+            <div class="icon-card d-flex justify-content-center align-items-center h-100 w-100">
+              <img loading="lazy" src="/assets/images/shop-images/location-marker.png" class="w-100" alt="location">
+            </div>
+          </div>
+        </div>
+      </ion-card-header>
+    </ion-card>
+
+  @for (cat of categories(); track $index) {
+    <ion-card class="rounded-4">
+      <ion-card-header>
+        <div class="row g-2">
+          <div class="col-4">
+            <div class="icon-card d-flex justify-content-center align-items-center h-100 w-100">
+              <img loading="lazy" [src]="cat.picture" class="w-100" [alt]="cat.picture_alt">
+            </div>
+          </div>
+
+          <div class="col-8">
+            <div class="title-card d-flex flex-column justify-content-center h-100">
+              <ion-card-title>{{cat.name}}</ion-card-title>
+            </div>
+          </div>
+        </div>
+      </ion-card-header>
+    </ion-card>
+  }
+</ion-content>
