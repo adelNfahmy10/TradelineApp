@@ -11,7 +11,6 @@ import { Capacitor } from '@capacitor/core';
 })
 export class AppComponent implements OnInit{
 
-
   path:string = ''
 
   constructor() {

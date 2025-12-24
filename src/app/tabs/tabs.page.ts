@@ -6,6 +6,7 @@ import { triangle, ellipse, square } from 'ionicons/icons';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/core/services/auth/auth-service';
+import { CartService } from 'src/core/services/cart/cart-service';
 
 @Component({
   selector: 'app-tabs',
@@ -16,6 +17,7 @@ import { AuthService } from 'src/core/services/auth/auth-service';
 export class TabsPage implements OnInit{
   public environmentInjector = inject(EnvironmentInjector);
   public _AuthService = inject(AuthService);
+  public _CartService = inject(CartService);
   public _Router = inject(Router);
   private menuCtrl = inject(MenuController);
   private _ToastrService = inject(ToastrService);

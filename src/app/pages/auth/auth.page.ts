@@ -6,6 +6,7 @@ import { AuthService } from 'src/core/services/auth/auth-service';
 import { switchMap, tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
+import { CartService } from 'src/core/services/cart/cart-service';
 
 @Component({
   selector: 'app-auth',
@@ -17,6 +18,7 @@ import { Router, RouterLink } from '@angular/router';
 export class AuthPage{
   private readonly _FormBuilder = inject(FormBuilder)
   private readonly _AuthService = inject(AuthService)
+  private readonly _CartService = inject(CartService)
   private readonly _ToastrService = inject(ToastrService)
   private readonly _Router = inject(Router)
 
@@ -35,6 +37,7 @@ export class AuthPage{
       // 1. خزّن توكن المستخدم
       tap((res: any) => {
         this._AuthService.setToken(res.token);
+        this._CartService.addCart()
       }),
 
       // 2. هات بيانات المستخدم
@@ -62,7 +65,6 @@ export class AuthPage{
             tapToDismiss: true
           }
         );
-
         this._Router.navigate(['/tabs/explore']);
         this.loginForm.reset();
       },
@@ -120,7 +122,6 @@ export class AuthPage{
       }
     });
   }
-
 
   segmentChanged(event: any) {
     const value = event.detail.value;

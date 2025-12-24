@@ -17,7 +17,7 @@ export class AuthService {
   points = signal<string | null>(null);
   // هل المستخدم مسجّل دخول؟
   isLoggedIn = computed(() => !!this.token());
-
+  currentCartId: WritableSignal<string> = signal(localStorage.getItem('tradelineCartId') || '');
 
   constructor() {
     this.loadToken();
@@ -31,13 +31,11 @@ export class AuthService {
       .subscribe();
   }
 
-
   loadUserData() {
     // جلب البيانات من localStorage أو Preferences
     this.userName.set(localStorage.getItem('userName'));
     this.points.set(localStorage.getItem('points'));
   }
-
 
   // Login Cycle Endpoints
   login(data: any): Observable<any> {
@@ -49,8 +47,13 @@ export class AuthService {
     this.token.set(null);
     this.userName.set(null);
     this.points.set(null);
-    localStorage.clear()
-    Preferences.remove({ key: 'tradelineToken' }); // آمن على Android
+    localStorage.removeItem('tradelineToken')
+    localStorage.removeItem('CapacitorStorage.tradelineToken')
+    localStorage.removeItem('userId')
+    localStorage.removeItem('userName')
+    localStorage.removeItem('phone')
+    localStorage.removeItem('userCartId')
+    Preferences.remove({ key: 'tradelineToken' });
   }
 
   // Set token
