@@ -1,10 +1,11 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA,  effect,  inject, signal, Signal } from '@angular/core';
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonIcon, IonRouterLink, IonModal, IonSearchbar, IonList, IonItem, IonLabel, IonMenu } from '@ionic/angular/standalone';
+import { IonContent,IonRouterLink, IonModal, IonSearchbar, IonList, IonItem, IonLabel} from '@ionic/angular/standalone';
 import { BannerService } from 'src/core/services/explore/banner';
 import { Router, RouterLink } from '@angular/router';
 import { ProductService } from 'src/core/services/product/product-service';
+import { AuthService } from 'src/core/services/auth/auth-service';
 
 @Component({
   selector: 'app-explore',
@@ -17,11 +18,16 @@ import { ProductService } from 'src/core/services/product/product-service';
 export class ExplorePage{
   private readonly _BannerService = inject(BannerService)
   private readonly _ProductService = inject(ProductService)
+  private readonly _AuthService = inject(AuthService)
+  private readonly _Router = inject(Router)
 
   offerBanners: Signal<any[]> = computed(() => this._BannerService.offerBanners());
   categoriesBanners: Signal<any[]> = computed(() => this._BannerService.catBanners());
+  points:string | null = localStorage.getItem('points')
+  userName:string | null = this._AuthService.userName()
   searchResults: any[] = [];
   searchWord:string = ''
+
   search(event: any) {
     this.searchWord = event.target?.value.toLowerCase() || '';
     if (this.searchWord.length < 2) {
@@ -45,5 +51,24 @@ export class ExplorePage{
     this.searchWord = '';
   }
 
+  isModalOpen = false;
 
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
+  goToHistory():void{
+    this.setOpen(false);
+    setTimeout(() => {
+      this._Router.navigate(['/tvc-history'])
+    });
+  }
+
+  goToDetails() {
+    this.setOpen(false);
+
+    setTimeout(() => {
+      this._Router.navigate(['/tvc-details']);
+    });
+  }
 }

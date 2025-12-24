@@ -22,3 +22,30 @@ ion-searchbar.custom {
   align-items: center;
   cursor: pointer;
 }
+.tvs-image{
+  span{
+    font-size: 18px;
+    font-weight: 600;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+  }
+}
+.toolbar-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  img {
+    max-height: 60px;
+    width: auto;
+  }
+}
+.close-btn{
+  top: -10px;
+  right: -10px;
+}

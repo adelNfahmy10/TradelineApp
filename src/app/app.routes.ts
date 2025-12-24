@@ -70,4 +70,8 @@ export const routes: Routes = [
     path: 'about-us',
     loadComponent: () => import('./pages/about-us/about-us.page').then( m => m.AboutUsPage)
   },
+  {
+    path: 'tvc-details',
+    loadComponent: () => import('./pages/tvc-details/tvc-details.page').then( m => m.TvcDetailsPage)
+  },
 ];

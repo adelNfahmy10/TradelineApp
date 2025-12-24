@@ -13,6 +13,7 @@ import { provideToastr } from 'ngx-toastr';
 
 import { headerInterceptor } from './core/interceptors/header/header-interceptor';
 import { loadingInterceptor } from './core/interceptors/loading/loading-interceptor';
+import { errorsInterceptor } from './core/interceptors/errors/errors-interceptor';
 
 // register Swiper custom elements
 register();
@@ -22,7 +23,7 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideHttpClient(withFetch(), withInterceptors([headerInterceptor, loadingInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([headerInterceptor, loadingInterceptor, errorsInterceptor])),
     provideAnimations(),
     provideToastr(),
   ],

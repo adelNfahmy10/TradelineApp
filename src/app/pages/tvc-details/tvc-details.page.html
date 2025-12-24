@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button efaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <div class="toolbar-center">
+        <img src="assets/images/tvc-history-images/tvc_new.png" alt="Logo">
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+   <div class="details p-3">
+    <div class="header-details shadow-sm p-3 rounded-3">
+      <h2 class="text-center mb-4 main-color fw-bold">Details</h2>
+      <h5>Name : <span class="main-color">{{userName}}</span></h5>
+      <h5>Total Points: <span class="main-color">{{points}} = {{+points! / 100}}% EGP</span></h5>
+    </div>
+
+
+    <div class="body-details my-4 px-3">
+      <!-- <p>Current Balance: <span>{{points?.CurrentBalance | number}}</span></p>
+      <p>Redeemed Points: <span>{{points?.RedeemedPoints | number}}</span></p>
+      <p>Current Valid Balance: <span>{{points?.CurrentValidBalance | number}}</span></p>
+      <p>Current Pending Balance: <span>{{points?.CurrentPendingBalance | number}}</span></p> -->
+
+      <p class="text-muted">Current Balance: <span class="main-color">{{points | number}} EGP</span></p>
+      <p class="text-muted">Redeemed Points: <span class="main-color">{{points | number}} Point(s)</span></p>
+      <p class="text-muted">Current Valid Balance: <span class="main-color">{{points | number}} EGP</span></p>
+      <p class="text-muted">Current Pending Balance: <span class="main-color">{{points | number}} EGP</span></p>
+    </div>
+  </div>
+</ion-content>

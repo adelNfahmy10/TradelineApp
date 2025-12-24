@@ -36,12 +36,13 @@
   </div>
 
   <!-- List Content App -->
-  <div class="tvs-image">
+  <div class="tvs-image position-relative" (click)="setOpen(true)">
     <img loading="lazy" src="/assets/images/explore-images/tvc-banner-new2.png" alt="tvc" class="tvs w-100 h-100">
+    <span class="position-absolute text-white">{{points}} Points</span>
   </div>
 
   <div class="list-cards">
-    <ion-card class="rounded-4" routerLink="/premuim">
+    <!-- <ion-card class="rounded-4" routerLink="/premuim">
       <ion-card-header>
         <div class="row g-3">
           <div class="col-2">
@@ -77,7 +78,7 @@
           </div>
         </div>
       </ion-card-header>
-    </ion-card>
+    </ion-card> -->
 
     <ion-card class="rounded-4" routerLink="/callback">
       <ion-card-header>
@@ -122,7 +123,7 @@
         <div class="row g-3">
           <div class="col-2">
             <div class="icon-card d-flex justify-content-center align-items-center h-100 w-100">
-              <img loading="lazy" src="/assets/images/explore-images/ICONS-21.png" class="w-100" alt="VISIT">
+              <img loading="lazy" src="/assets/images/explore-images/vr.svg" class="w-100" alt="VISIT">
             </div>
           </div>
 
@@ -162,6 +163,46 @@
         }
       </ion-list>
 
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <div class="tool-header d-flex justify-content-center align-items-center py-5 w-100">
+          <div class="toolbar-center">
+            <img src="assets/images/tvc-history-images/tvc_new.png" alt="Logo">
+          </div>
+        </div>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <div class="card bg-black p-4 mx-4 mt-4 rounded-5 text-center position-relative">
+        <img alt="Silhouette of mountains" src="assets/images/explore-images/tvc-logo-white.png" />
+
+        <ion-card-header>
+          <ion-card-title>
+            <h1 class="text-white fw-bold">{{userName}}</h1>
+          </ion-card-title>
+
+          <ion-card-subtitle class="my-3">
+            <h4 class="text-light">Valid Points</h4>
+            <h5 class="fst-italic text-light">Pending Points</h5>
+          </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content class="pb-0">
+          <span class="text-white text-decoration-underline" (click)="goToDetails()">VIEW MORE</span>
+
+          <ion-button class="main-btn mt-4 w-100" (click)="goToHistory()"> History </ion-button>
+        </ion-card-content>
+
+        <span class="close-btn position-absolute bg-white text-danger shadow p-1 px-2 fs-3 rounded-circle" (click)="setOpen(false)"><i class="fa-solid fa-xmark"></i></span>
+
+      </div>
     </ion-content>
   </ng-template>
 </ion-modal>

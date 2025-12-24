@@ -43,10 +43,10 @@ export class SubCategoriesPage implements OnInit{
       next: (res: any) => {
         this.subCategoryProducts = res.results;
 
-        if ((!this.subCategory?.sub_category_size?.length) && this.subCategoryProducts.length === 1) {
-          const product = this.subCategoryProducts[0];
-          this._Router.navigate([`/product/${product.seo_slug}`]);
-        }
+        // if ((!this.subCategory?.sub_category_size?.length) && this.subCategoryProducts.length === 1) {
+        //   const product = this.subCategoryProducts[0];
+        //   this._Router.navigate([`/product/${product.seo_slug}`]);
+        // }
       }
     });
   }

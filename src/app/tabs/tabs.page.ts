@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonContent, IonHeader, IonToolbar, IonMenuButton, IonList, IonMenu, IonItem, MenuController, IonMenuToggle } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { triangle, ellipse, square } from 'ionicons/icons';
+import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/core/services/auth/auth-service';
 
@@ -17,12 +18,14 @@ export class TabsPage implements OnInit{
   public _AuthService = inject(AuthService);
   public _Router = inject(Router);
   private menuCtrl = inject(MenuController);
+  private _ToastrService = inject(ToastrService);
 
 
   userName:string | null = localStorage.getItem('userName')
-  posints:string | null = localStorage.getItem('points')
+  points:string | null = localStorage.getItem('points')
   token: Signal<string | null> = computed(() => this._AuthService.token());
   title:string = ''
+  isLoggedIn: Signal<boolean> = this._AuthService.isLoggedIn;
 
   constructor() {
     addIcons({ triangle, ellipse, square });
@@ -34,6 +37,26 @@ export class TabsPage implements OnInit{
 
   logout(): void {
     this._AuthService.logout();
+  }
+
+  deleteAccount():void{
+    this._AuthService.deleteAccount().subscribe({
+      next:(res)=>{
+         this._ToastrService.success(
+          `Delete Account successfully`,
+          '',
+          {
+            timeOut: 3000,
+            progressBar: true,
+            progressAnimation: 'increasing',
+            closeButton: true,
+            positionClass: 'toast-top-right',
+            tapToDismiss: true
+          }
+        );
+        this.logout()
+      }
+    })
   }
 
   private listenToRouteChange(): void {

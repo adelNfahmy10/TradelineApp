@@ -18,6 +18,7 @@ ion-tab-button {
 .tab-selected {
   --color: #00a359 !important;
 }
+
 .img-toolbar {
   width: 200px;
 }
@@ -25,7 +26,4 @@ ion-tab-button {
 .menu-lable{
   transition: all .3s;
   font-size: 14px;
-  &:hover{
-    background-color: #cccccc33;
-  }
 }

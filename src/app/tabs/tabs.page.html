@@ -2,7 +2,7 @@
   <ion-header class="p-4 shadow-none header-menu bg-light">
     <ion-icon name="person-circle-outline" color="success" class="icon-toolbar"></ion-icon>
     <h3>{{ userName }}</h3>
-    <span>Points {{ posints }}</span>
+    <span>Points {{ points }}</span>
   </ion-header>
 
   <ion-content>
@@ -44,7 +44,7 @@
         </ion-item>
       </ion-menu-toggle>
 
-      @if (token()) {
+      @if (isLoggedIn()) {
         <ion-menu-toggle auto-hide="true">
           <ion-item (click)="logout()">
             <ion-label class="fw-bold main-color menu-lable">
@@ -54,7 +54,7 @@
         </ion-menu-toggle>
 
         <ion-menu-toggle auto-hide="true">
-          <ion-item>
+          <ion-item (click)="deleteAccount()">
             <ion-label class="main-color menu-lable">
               Delete Account
             </ion-label>
@@ -73,7 +73,7 @@
       <div class="tool-header d-flex align-items-center justify-content-between px-3 py-4 w-100">
 
         <!-- Left Icon -->
-        @if(token()){
+        @if(isLoggedIn()){
           <ion-menu-button>
             <ion-icon name="person-circle-outline" color="success" class="icon-toolbar"></ion-icon>
           </ion-menu-button>

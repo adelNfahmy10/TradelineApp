@@ -45,6 +45,8 @@ export class AuthPage{
         localStorage.setItem("userId", user.id);
         localStorage.setItem("userName", `${user.firstname} ${user.lastname}`);
         localStorage.setItem("phone", user.phone);
+
+        this._AuthService.userName.set(`${user.firstname} ${user.lastname}`)
       })
     ).subscribe({
       next: () => {
@@ -71,61 +73,54 @@ export class AuthPage{
   }
 
   signupForm:FormGroup = this._FormBuilder.group({
-    fName:[null, Validators.required],
-    lName:[null, Validators.required],
+    firstname:[null, Validators.required],
+    lastname:[null, Validators.required],
     phone:[null, Validators.required],
     email:[null, Validators.required],
     password:[null, Validators.required],
     rePassword:[null, Validators.required],
   })
 
-  submitSignup():void{
+  submitSignup(): void {
     if (this.signupForm.invalid) return;
-    let data = this.signupForm.value
+    const data = this.signupForm.value;
 
-    this._AuthService.register(data).subscribe({
-      next:(res)=>{
-        localStorage.setItem("tradelineToken", res.token);
-         this._AuthService.register(data).pipe(
-            // 1. خزّن توكن المستخدم
-            tap((res: any) => {
-              localStorage.setItem("tradelineToken", res.token);
-            }),
-
-            // 2. هات بيانات المستخدم
-            switchMap((res: any) => this._AuthService.getUserInfo(res.token)),
-
-            // 3. خزّن بيانات المستخدم
-            tap((user: any) => {
-              localStorage.setItem("userId", user.id);
-              localStorage.setItem("userName", `${user.firstname} ${user.lastname}`);
-              localStorage.setItem("phone", user.phone);
-            })
-          ).subscribe({
-            next: () => {
-              this._ToastrService.success(
-                `SignUp successful, ${localStorage.getItem('userName')}`,
-                '',
-                {
-                  timeOut: 3000,
-                  progressBar: true,
-                  progressAnimation: 'increasing',
-                  closeButton: true,
-                  positionClass: 'toast-top-right',
-                  tapToDismiss: true
-                }
-              );
-
-              this._Router.navigate(['/tabs/explore']);
-              this.loginForm.reset();
-            },
-            error: (err) => {
-              console.error('Login flow failed', err);
-            }
-          });
+    this._AuthService.register(data).pipe(
+      // 1. خزّن التوكن
+      tap((res: any) => {
+        this._AuthService.setToken(res.token); // استخدم setToken بدل localStorage مباشرة
+      }),
+      // 2. هات بيانات المستخدم
+      switchMap((res: any) => this._AuthService.getUserInfo(res.token)),
+      // 3. خزّن بيانات المستخدم
+      tap((user: any) => {
+        localStorage.setItem("userId", user.id);
+        localStorage.setItem("userName", `${user.firstname} ${user.lastname}`);
+        localStorage.setItem("phone", user.phone);
+      })
+    ).subscribe({
+      next: () => {
+        this._ToastrService.success(
+          `SignUp successful, ${localStorage.getItem('userName')}`,
+          '',
+          {
+            timeOut: 3000,
+            progressBar: true,
+            progressAnimation: 'increasing',
+            closeButton: true,
+            positionClass: 'toast-top-right',
+            tapToDismiss: true
+          }
+        );
+        this._Router.navigate(['/tabs/explore']);
+        this.signupForm.reset();
+      },
+      error: (err) => {
+        console.error('Signup flow failed', err);
       }
-    })
+    });
   }
+
 
   segmentChanged(event: any) {
     const value = event.detail.value;
