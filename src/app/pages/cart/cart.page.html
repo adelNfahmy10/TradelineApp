@@ -13,18 +13,31 @@
             <div class="row">
               <div class="col-3">
                 <div class="d-flex justify-content-center align-items-center h-100">
-                  <img loading="lazy" src="/assets/icon/favicon.png" class="w-100" alt="">
+                  @if(product?.product_property){
+                    <img loading="lazy" [src]="product.product_property?.color?.picture" class="w-100" [alt]="product?.product?.picture1_alt">
+                  } @else if(!product?.product_property){
+                    <img loading="lazy" [src]="product?.product?.picture1_alt" class="w-100" [alt]="product?.product?.picture1_alt">
+                  }
                 </div>
               </div>
 
               <div class="col-8">
-                <h4 class="fw-bold fs-6 m-0 text-success">IPhone 17 Pro Max</h4>
+                <h4 class="fw-bold fs-6 m-0 text-success">{{product?.product?.name}}</h4>
                 <ul class="my-2 px-4">
-                  <li class="item-details">Size: <span class="text-success fw-bold">265GB</span></li>
-                  <li class="item-details">Color: <span class="text-success fw-bold"> Cosmic Orange</span></li>
-                  <li class="item-details">Count : <span class="text-success fw-bold">1</span></li>
+                  @if(product?.product_property?.capacity){
+                    <li class="item-details">Size: <span class="text-success fw-bold">{{product?.product_property?.capacity.name}}</span></li>
+                  }
+                  <li class="item-details">Color: <span class="text-success fw-bold"> {{product?.product_property?.color?.name}}</span></li>
+                  <li class="item-details">Count : <span class="text-success fw-bold">{{product?.quantity}}</span></li>
                 </ul>
-                <h4 class="text-success fw-bold fs-6 m-0">Total : 94,000 EGP</h4>
+                <h4 class="text-success fw-bold fs-6 m-0">
+                  Total : {{product?.total}} EGP
+                  <br>
+                  @if(product?.product?.is_preorder == true){
+                    <span style="font-size: 12px" class="text-warning">Pre Order</span>
+                  }
+
+                </h4>
               </div>
 
               <div class="col-12 d-flex justify-content-end align-items-center gap-1 del-msg text-danger">
@@ -36,248 +49,48 @@
         </ion-item>
 
         <ion-item-options side="end">
-          <ion-item-option color="danger">
+          <ion-item-option color="danger" (click)="deleteProductInCart(product.id)">
             <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     } @empty {
-      <!-- <h4 class="text-center my-3 fw-bold"> Cart Is Empty</h4> -->
-
-      <ion-item-sliding>
-        <ion-item-options side="start">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-
-        <ion-item>
-          <ion-label>
-            <div class="row">
-              <div class="col-3">
-                <div class="d-flex justify-content-center align-items-center h-100">
-                  <img loading="lazy" src="/assets/icon/favicon.png" class="w-100" alt="">
-                </div>
-              </div>
-
-              <div class="col-8">
-                <h4 class="fw-bold fs-6 m-0 text-success">IPhone 17 Pro Max</h4>
-                <ul class="my-2 px-4">
-                  <li class="item-details">Size: <span class="text-success fw-bold">265GB</span></li>
-                  <li class="item-details">Color: <span class="text-success fw-bold"> Cosmic Orange</span></li>
-                  <li class="item-details">Count : <span class="text-success fw-bold">1</span></li>
-                </ul>
-                <h4 class="text-success fw-bold fs-6 m-0">Total : 94,000 EGP</h4>
-              </div>
-
-              <div class="col-12 d-flex justify-content-end align-items-center gap-1 del-msg text-danger">
-                <span>swipe to delete</span>
-                <ion-icon name="arrow-forward-outline"></ion-icon>
-              </div>
-            </div>
-          </ion-label>
-        </ion-item>
-
-        <ion-item-options side="end">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-
-      <ion-item-sliding>
-        <ion-item-options side="start">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-
-        <ion-item>
-          <ion-label>
-            <div class="row">
-              <div class="col-3">
-                <div class="d-flex justify-content-center align-items-center h-100">
-                  <img loading="lazy" src="/assets/icon/favicon.png" class="w-100" alt="">
-                </div>
-              </div>
-
-              <div class="col-8">
-                <h4 class="fw-bold fs-6 m-0 text-success">IPhone 17 Pro Max</h4>
-                <ul class="my-2 px-4">
-                  <li class="item-details">Size: <span class="text-success fw-bold">265GB</span></li>
-                  <li class="item-details">Color: <span class="text-success fw-bold"> Cosmic Orange</span></li>
-                  <li class="item-details">Count : <span class="text-success fw-bold">1</span></li>
-                </ul>
-                <h4 class="text-success fw-bold fs-6 m-0">Total : 94,000 EGP</h4>
-              </div>
-
-              <div class="col-12 d-flex justify-content-end align-items-center gap-1 del-msg text-danger">
-                <span>swipe to delete</span>
-                <ion-icon name="arrow-forward-outline"></ion-icon>
-              </div>
-            </div>
-          </ion-label>
-        </ion-item>
-
-        <ion-item-options side="end">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-
-      <ion-item-sliding>
-        <ion-item-options side="start">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-
-        <ion-item>
-          <ion-label>
-            <div class="row">
-              <div class="col-3">
-                <div class="d-flex justify-content-center align-items-center h-100">
-                  <img loading="lazy" src="/assets/icon/favicon.png" class="w-100" alt="">
-                </div>
-              </div>
-
-              <div class="col-8">
-                <h4 class="fw-bold fs-6 m-0 text-success">IPhone 17 Pro Max</h4>
-                <ul class="my-2 px-4">
-                  <li class="item-details">Size: <span class="text-success fw-bold">265GB</span></li>
-                  <li class="item-details">Color: <span class="text-success fw-bold"> Cosmic Orange</span></li>
-                  <li class="item-details">Count : <span class="text-success fw-bold">1</span></li>
-                </ul>
-                <h4 class="text-success fw-bold fs-6 m-0">Total : 94,000 EGP</h4>
-              </div>
-
-              <div class="col-12 d-flex justify-content-end align-items-center gap-1 del-msg text-danger">
-                <span>swipe to delete</span>
-                <ion-icon name="arrow-forward-outline"></ion-icon>
-              </div>
-            </div>
-          </ion-label>
-        </ion-item>
-
-        <ion-item-options side="end">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-
-      <ion-item-sliding>
-        <ion-item-options side="start">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-
-        <ion-item>
-          <ion-label>
-            <div class="row">
-              <div class="col-3">
-                <div class="d-flex justify-content-center align-items-center h-100">
-                  <img loading="lazy" src="/assets/icon/favicon.png" class="w-100" alt="">
-                </div>
-              </div>
-
-              <div class="col-8">
-                <h4 class="fw-bold fs-6 m-0 text-success">IPhone 17 Pro Max</h4>
-                <ul class="my-2 px-4">
-                  <li class="item-details">Size: <span class="text-success fw-bold">265GB</span></li>
-                  <li class="item-details">Color: <span class="text-success fw-bold"> Cosmic Orange</span></li>
-                  <li class="item-details">Count : <span class="text-success fw-bold">1</span></li>
-                </ul>
-                <h4 class="text-success fw-bold fs-6 m-0">Total : 94,000 EGP</h4>
-              </div>
-
-              <div class="col-12 d-flex justify-content-end align-items-center gap-1 del-msg text-danger">
-                <span>swipe to delete</span>
-                <ion-icon name="arrow-forward-outline"></ion-icon>
-              </div>
-            </div>
-          </ion-label>
-        </ion-item>
-
-        <ion-item-options side="end">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-
-      <ion-item-sliding>
-        <ion-item-options side="start">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-
-        <ion-item>
-          <ion-label>
-            <div class="row">
-              <div class="col-3">
-                <div class="d-flex justify-content-center align-items-center h-100">
-                  <img loading="lazy" src="/assets/icon/favicon.png" class="w-100" alt="">
-                </div>
-              </div>
-
-              <div class="col-8">
-                <h4 class="fw-bold fs-6 m-0 text-success">IPhone 17 Pro Max</h4>
-                <ul class="my-2 px-4">
-                  <li>Size: <span class="text-success fw-bold">265GB</span></li>
-                  <li>Color: <span class="text-success fw-bold"> Cosmic Orange</span></li>
-                  <li>Count : <span class="text-success fw-bold">1</span></li>
-                </ul>
-                <h4 class="text-success fw-bold fs-6 m-0">Total : 94,000 EGP</h4>
-              </div>
-
-              <div class="col-12 d-flex justify-content-end align-items-center gap-1 del-msg text-danger">
-                <span>swipe to delete</span>
-                <ion-icon name="arrow-forward-outline"></ion-icon>
-              </div>
-            </div>
-          </ion-label>
-        </ion-item>
-
-        <ion-item-options side="end">
-          <ion-item-option color="danger">
-            <ion-icon name="trash-outline" class="text-white fs-2"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
+      <h4 class="text-center my-3 fw-bold"> Cart Is Empty</h4>
     }
   </ion-list>
 
   <ion-card>
     <ion-card-content>
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="mb-2 d-flex justify-content-between align-items-center">
+        <h4 class="fw-bold fs-6 m-0 text-black">Count :</h4>
+        <h4 class="text-success fs-6 m-0"> {{count()}} Product(s)</h4>
+      </div>
+
+      <div class="mb-2 d-flex justify-content-between align-items-center">
         <h4 class="fw-bold fs-6 m-0 text-black">Shipping :</h4>
-        <h4 class="text-success fs-6 m-0"> 170 EGP</h4>
+        <h4 class="text-success fs-6 m-0"> {{shippingValue()}} EGP</h4>
       </div>
 
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="mb-2 d-flex justify-content-between align-items-center">
         <h4 class="fw-bold fs-6 m-0 text-black">SubTotal :</h4>
-        <h4 class="text-success fs-6 m-0"> 83,000 EGP</h4>
+        <h4 class="text-success fs-6 m-0"> {{subTotal() | number : '0.1-2'}} EGP</h4>
       </div>
 
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="mb-2 d-flex justify-content-between align-items-center">
         <h4 class="fw-bold fs-6 m-0 text-black">Taxes :</h4>
-        <h4 class="text-success fs-6 m-0"> 11,000 EGP</h4>
+        <h4 class="text-success fs-6 m-0"> {{tax() | number : '0.1-2'}} EGP</h4>
       </div>
 
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="mb-2 d-flex justify-content-between align-items-center">
         <h4 class="fw-bold fs-6 m-0 text-black">Total :</h4>
-        <h4 class="text-success fs-6 m-0"> 470,000 EGP</h4>
+        <h4 class="text-success fs-6 m-0"> {{totalAmount() | number : '0.1-2'}} EGP</h4>
       </div>
 
       <hr class="my-2">
 
       <div class="d-flex justify-content-center align-items-center gap-1 w-100">
-        <ion-button class="continue w-50" fill="outline">Continue Shopping</ion-button>
-        <ion-button class="checkout w-50">Checkout</ion-button>
+        <ion-button class="continue w-50" fill="outline" routerLink="/tabs/shop">Continue Shopping</ion-button>
+        <ion-button class="checkout w-50" [disabled]="cartItems().length === 0">Checkout</ion-button>
       </div>
     </ion-card-content>
   </ion-card>

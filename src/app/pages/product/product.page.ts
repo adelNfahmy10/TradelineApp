@@ -174,7 +174,7 @@ export class ProductPage implements OnInit {
       branded_page_product: null
     };
 
-    body.cart = localStorage.getItem('userCartId') ? localStorage.getItem('userCartId') : this._CartService.currentCartId();
+    body.cart = localStorage.getItem('userCartId') ? 2   : this._CartService.currentCartId();
 
     if(localStorage.getItem(`userCartId`)){
       this._CartService.addProductToCart(body).subscribe({

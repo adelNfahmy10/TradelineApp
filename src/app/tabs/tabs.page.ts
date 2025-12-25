@@ -22,13 +22,13 @@ export class TabsPage implements OnInit{
   private menuCtrl = inject(MenuController);
   private _ToastrService = inject(ToastrService);
 
-
   userName:string | null = localStorage.getItem('userName')
   points:string | null = localStorage.getItem('points')
   token: Signal<string | null> = computed(() => this._AuthService.token());
   title:string = ''
   isLoggedIn: Signal<boolean> = this._AuthService.isLoggedIn;
-
+  productCount = this._CartService.productCount || 0;
+  
   constructor() {
     addIcons({ triangle, ellipse, square });
   }

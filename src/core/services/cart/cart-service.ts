@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, OnInit, signal, WritableSignal } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth/auth-service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CartService {
+export class CartService implements OnInit{
   private _HttpClient = inject(HttpClient);
   private _AuthService = inject(AuthService); // هنستخدمه صح
 
@@ -14,6 +15,7 @@ export class CartService {
   cartItems = signal<any[]>([]);
   token = this._AuthService.token; // مرتبط بـ AuthService
   currentCartId = this._AuthService.currentCartId; // مرتبط بـ AuthService
+  productCount:WritableSignal<number> = signal(0)
 
   constructor() {
     // effect يستمع لأي تغيّر في token أو currentCartId
@@ -30,6 +32,10 @@ export class CartService {
         }
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.getCart()
   }
 
   // 🔹 User Cart
@@ -56,6 +62,15 @@ export class CartService {
     });
   }
 
+  // Get Cart In Cart Page
+  getCart():Observable<any> {
+    let id: any;
+    const token = localStorage.getItem('tradelineToken');
+    token ? id = 2 : id = localStorage.getItem("tradelineCartId")
+    let url = environment.baseUrl;
+    return this._HttpClient.get(`${url}carts/${id}/`);
+  }
+
   // 🔹 Create Cart
   addCart(): void {
     this._HttpClient.post<any>(`${environment.baseUrl}carts/`, {}).subscribe({
@@ -76,14 +91,18 @@ export class CartService {
     this.cartItems.set(res?.items || []);
   }
 
+  // Add Product To Cart
   addProductToCart(body:any) {
     return this._HttpClient.post( `${environment.baseUrl}cartproducts/?product_page=true`, body);
   }
+
+  // Shipping Api
+  getShipping():Observable<any>{
+    return this._HttpClient.get(`${environment.baseUrl}shipping-value/`);
+  }
+
+  // Delete Product In Cart
+  deleteCartProduct(id:any):Observable<any> {
+    return this._HttpClient.delete( `${environment.baseUrl}cartproducts/${id}/`);
+  }
 }
-// {
-//   cart: cart_id,
-//   product: product_id,
-//   product_property: product_pro,
-//   quantity: 1,
-//   insurance:insurance
-// }

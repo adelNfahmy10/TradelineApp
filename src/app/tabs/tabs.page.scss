@@ -27,3 +27,19 @@ ion-tab-button {
   transition: all .3s;
   font-size: 14px;
 }
+.cart-btn{
+  span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    font-weight: bold;
+    background-color: $main-color;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+  }
+}

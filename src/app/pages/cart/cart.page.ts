@@ -1,25 +1,70 @@
-import { Component, computed, effect, inject, OnInit, Signal } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItemOption, IonList, IonItemSliding, IonItemOptions, IonIcon, IonItem, IonLabel, IonThumbnail, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonCol, IonRow } from '@ionic/angular/standalone';
+import { IonContent, IonItemOption, IonList, IonItemSliding, IonItemOptions, IonIcon, IonItem, IonLabel,  IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton } from '@ionic/angular/standalone';
 import { CartService } from 'src/core/services/cart/cart-service';
+import { AuthService } from 'src/core/services/auth/auth-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
   styleUrls: ['./cart.page.scss'],
   standalone: true,
-  imports: [IonButton, IonCardContent, IonCard, IonLabel, IonItem, IonIcon, IonItemOptions, IonItemSliding, IonList, IonItemOption, IonContent, CommonModule, FormsModule, IonCardHeader, IonCardTitle]
+  imports: [IonButton, IonCardContent, IonCard, IonLabel, IonItem, IonIcon, IonItemOptions, IonItemSliding, IonList, IonItemOption, IonContent, CommonModule, FormsModule, IonCardHeader, IonCardTitle, RouterLink]
 })
-export class CartPage {
-  private _cartService = inject(CartService);
+export class CartPage implements OnInit{
+  private _CartService = inject(CartService);
+  private _AuthService = inject(AuthService);
 
-  cartItems: Signal<any[]> = computed(() => this._cartService.cartItems());
-  currentCartId: Signal<string> = computed(() => this._cartService.currentCartId());
+  cartItems:WritableSignal<any[]> = signal([])
+  token = this._AuthService.token;
+  cuurentCartId = this._AuthService.currentCartId;
+  count:WritableSignal<number> = signal(0)
+  totalAmount:WritableSignal<number> = signal(0)
+  subTotal:WritableSignal<number> = signal(0)
+  tax:WritableSignal<number> = signal(0)
+  shippingValue:WritableSignal<number> = signal(0)
 
-  constructor() {
-    if (!this._cartService.currentCartId()) {
-      this._cartService.addCart();
+  ngOnInit(): void {
+    this.fetchCartData()
+  }
+
+  fetchCartData(): void {
+    if(this.token() || this.cuurentCartId()){
+      this._CartService.getCart().subscribe({
+        next:(res) => {
+          this.cartItems.set(res?.cartproduct || [])
+          this.count.set(res?.total_quantity || 0)
+          this.subTotal.set(res?.total / 1.14)
+          this.totalAmount.set(res?.total + this.shippingValue())
+          this.tax.set(this.totalAmount() - this.subTotal())
+          localStorage.setItem('IdCart', res.id)
+          this.getShipping()
+          this._CartService.productCount.set(res?.total_quantity)
+        },
+      })
     }
+  }
+
+  getShipping():void{
+    this._CartService.getShipping().subscribe({
+      next:(res)=>{
+        if(this.cartItems().length > 0){
+          this.shippingValue.set(res[0].shipping || 0)
+        } else {
+          this.shippingValue.set(0)
+          this.tax.set(0)
+        }
+      }
+    })
+  }
+
+  deleteProductInCart(id:any):void{
+    this._CartService.deleteCartProduct(id).subscribe({
+      next:(res)=>{
+        this.fetchCartData()
+      }
+    })
   }
 }
