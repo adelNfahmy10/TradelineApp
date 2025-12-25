@@ -7,6 +7,7 @@ import { switchMap, tap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
 import { CartService } from 'src/core/services/cart/cart-service';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-auth',
@@ -37,6 +38,7 @@ export class AuthPage{
       // 1. خزّن توكن المستخدم
       tap((res: any) => {
         this._AuthService.setToken(res.token);
+        Preferences.set({ key: 'tradelineToken', value: res.token });
         this._CartService.addCart()
       }),
 

@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { effect, inject, Injectable, OnInit, signal, WritableSignal } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth/auth-service';
-import { Observable } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CartService implements OnInit{
+export class CartService{
   private _HttpClient = inject(HttpClient);
   private _AuthService = inject(AuthService); // هنستخدمه صح
 
@@ -23,19 +23,21 @@ export class CartService implements OnInit{
       if (this.token()) {
         // Logged-in user
         this.fetchUserCart();
+        this.getCart()
+        this.getCartCount()
+
       } else {
         // Guest
         if (this.currentCartId()) {
           this.fetchGuestCart(this.currentCartId());
+          this.getCart()
+          this.getCartCount()
+
         } else {
           this.addCart();
         }
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.getCart()
   }
 
   // 🔹 User Cart
@@ -64,11 +66,18 @@ export class CartService implements OnInit{
 
   // Get Cart In Cart Page
   getCart():Observable<any> {
-    let id: any;
-    const token = localStorage.getItem('tradelineToken');
-    token ? id = 2 : id = localStorage.getItem("tradelineCartId")
-    let url = environment.baseUrl;
-    return this._HttpClient.get(`${url}carts/${id}/`);
+    const id = this.token() ? 2 : this.currentCartId();
+    return this._HttpClient.get(`${environment.baseUrl}carts/${id}/`);
+  }
+
+  // Get Count Cart
+  getCartCount() {
+    const id = this.token() ? 2 : this.currentCartId();
+    this._HttpClient.get(`${environment.baseUrl}carts/${id}/`).subscribe({
+      next:(res:any)=>{
+        this.productCount.set(res?.total_quantity)
+      }
+    });
   }
 
   // 🔹 Create Cart

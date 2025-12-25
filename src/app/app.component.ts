@@ -39,10 +39,10 @@ export class AppComponent implements OnInit{
       if (permission.location === 'granted') {
         this.getCurrentLocation();
       } else {
-        console.warn('Location permission denied');
+        // console.warn('Location permission denied');
       }
     } catch (error) {
-      console.error('Error requesting location permission', error);
+      // console.error('Error requesting location permission', error);
     }
   }
 
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit{
       const coordinates = await Geolocation.getCurrentPosition();
       // ممكن تخزن الإحداثيات أو تستخدمها مباشرة
     } catch (error) {
-      console.error('Error getting location', error);
+      // console.error('Error getting location', error);
     }
   }
 
@@ -63,10 +63,10 @@ export class AppComponent implements OnInit{
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log('Current location (web):', position.coords);
+        // console.log('Current location (web):', position.coords);
       },
       (error) => {
-        console.error('Error getting location (web):', error);
+        // console.error('Error getting location (web):', error);
       }
     );
   }
