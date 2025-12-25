@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { effect, inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth/auth-service';
 
@@ -71,8 +71,19 @@ export class CartService {
     });
   }
 
-    // 🔹 Shared Handler
+  // 🔹 Shared Handler
   private handleCartResponse(res: any): void {
     this.cartItems.set(res?.items || []);
   }
+
+  addProductToCart(body:any) {
+    return this._HttpClient.post( `${environment.baseUrl}cartproducts/?product_page=true`, body);
+  }
 }
+// {
+//   cart: cart_id,
+//   product: product_id,
+//   product_property: product_pro,
+//   quantity: 1,
+//   insurance:insurance
+// }

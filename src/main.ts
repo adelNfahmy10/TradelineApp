@@ -23,7 +23,7 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideHttpClient(withFetch(), withInterceptors([headerInterceptor, loadingInterceptor, errorsInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([headerInterceptor, loadingInterceptor])),
     provideAnimations(),
     provideToastr(),
   ],
