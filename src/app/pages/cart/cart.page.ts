@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
+import { Component, effect, inject, OnDestroy, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonItemOption, IonList, IonItemSliding, IonItemOptions, IonIcon, IonItem, IonLabel,  IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton } from '@ionic/angular/standalone';
@@ -43,16 +43,18 @@ export class CartPage implements OnInit{
   }
 
   fetchCartData(): void {
-   const id = this.token() ? 2 : this.currentCartId();
+    const id = this.token() ? 2 : this.currentCartId();
     if (!id) return;
 
     this._CartService.getCart().subscribe({
       next: (res) => {
+        this.cartItems.set([]);
         this.cartItems.set(res?.cartproduct || []);
         this.count.set(res?.total_quantity || 0);
         this.subTotal.set(res?.total / 1.14)
         this.totalAmount.set(res?.total + this.shippingValue())
         this.tax.set(this.totalAmount() - this.subTotal())
+        this._CartService.productCount.set(this.count())
         this.getShipping()
       },
       error: () => {
