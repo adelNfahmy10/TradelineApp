@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonAccordionGroup, IonAccordion, IonItem } from '@ionic/angular/standalone';
 import { ProductService } from 'src/core/services/product/product-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { filter, map, switchMap, tap } from 'rxjs';
 import { CartService } from 'src/core/services/cart/cart-service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './product.page.html',
   styleUrls: ['./product.page.scss'],
   standalone: true,
-  imports: [IonBackButton, IonButtons, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, IonAccordionGroup, IonAccordion, IonItem],
+  imports: [IonBackButton, IonButtons, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, IonAccordionGroup, IonAccordion, IonItem, RouterLink],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductPage implements OnInit {
@@ -37,6 +37,8 @@ export class ProductPage implements OnInit {
   sliderImages: string[] = [];
 
   out_of_stock: boolean = false;
+
+  cartCount = this._CartService.productCount
 
   ngOnInit(): void {
     this.getProductDetails();
@@ -180,6 +182,7 @@ export class ProductPage implements OnInit {
       this._CartService.addProductToCart(body).subscribe({
         next: () => {
           this._ToastrService.success('Product added to cart')
+          this._CartService.getCartCount()
         },
         error: (err) => {
           this._ToastrService.error(err.error?.detail)
@@ -191,6 +194,7 @@ export class ProductPage implements OnInit {
       this._CartService.addProductToCart(body).subscribe({
         next:(res)=>{
           this._ToastrService.success('Product added to cart')
+          this._CartService.getCartCount()
         },
         error: (err) => {
           this._ToastrService.error(err.error?.detail)

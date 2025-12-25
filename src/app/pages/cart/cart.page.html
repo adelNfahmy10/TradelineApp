@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
-  <span class="m-2 my-3 rounded-3 px-2 d-inline-block main-color border-bottom pb-0" (click)="fetchCartData()"> <i class="fa-solid fa-arrow-rotate-right"></i> Refresh Cart</span>
-  <ion-list>
+  <span class="m-2 my-3 rounded-3 px-2 d-inline-block main-color border-bottom pb-0" (click)="fetchCartData()"> <i class="fa-solid fa-arrows-rotate"></i> Refresh Cart</span>
+  <ion-list lines="none">
     @for (product of cartItems(); track $index) {
       <ion-item-sliding>
         <ion-item-options side="start">

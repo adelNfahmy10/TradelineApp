@@ -1,3 +1,6 @@
+$main-color: #00a359;
+$second-color: #017943;
+
 swiper-container {
   width: 100%;
   height: 100px;
@@ -179,4 +182,24 @@ ion-item {
   border-bottom-right-radius: 10px;
   margin-top: 10px;
   font-weight: 600;
+}
+
+.cart-icon{
+  bottom: 15px;
+  right: 20px;
+  ion-fab-button {
+    --background: #00a359;
+  }
+  ion-icon{
+    font-size: 30px !important;
+  }
+}
+.count-cart{
+  top: 8px;
+  right: 8px;
+  background-color: red;
+  color: #fff;
+  width: 20px;
+  width: 20px;
+  border-radius: 50%;
 }

@@ -10,7 +10,6 @@ import { Capacitor } from '@capacitor/core';
   imports: [IonApp, IonRouterOutlet, NgxSpinnerComponent],
 })
 export class AppComponent implements OnInit{
-
   path:string = ''
 
   constructor() {

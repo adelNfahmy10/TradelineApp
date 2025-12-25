@@ -1,4 +1,4 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, Signal } from '@angular/core';
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent,IonRouterLink, IonModal, IonSearchbar, IonList, IonItem, IonLabel} from '@ionic/angular/standalone';
@@ -6,6 +6,7 @@ import { BannerService } from 'src/core/services/explore/banner';
 import { Router, RouterLink } from '@angular/router';
 import { ProductService } from 'src/core/services/product/product-service';
 import { AuthService } from 'src/core/services/auth/auth-service';
+import { CartService } from 'src/core/services/cart/cart-service';
 
 @Component({
   selector: 'app-explore',
@@ -15,9 +16,10 @@ import { AuthService } from 'src/core/services/auth/auth-service';
   imports: [IonContent, CommonModule, FormsModule, IonRouterLink, RouterLink, IonModal, IonSearchbar, IonList, IonItem, IonLabel],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ExplorePage{
+export class ExplorePage implements OnInit{
   private readonly _BannerService = inject(BannerService)
   private readonly _ProductService = inject(ProductService)
+  private readonly _CartService = inject(CartService)
   private readonly _AuthService = inject(AuthService)
   private readonly _Router = inject(Router)
 
@@ -27,6 +29,10 @@ export class ExplorePage{
   userName:string | null = this._AuthService.userName()
   searchResults: any[] = [];
   searchWord:string = ''
+
+  ngOnInit(): void {
+    this._CartService.getCartCount()
+  }
 
   search(event: any) {
     this.searchWord = event.target?.value.toLowerCase() || '';

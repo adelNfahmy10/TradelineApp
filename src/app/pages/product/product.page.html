@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="container">
+  <div class="container position-relative">
     <div class="slider-images">
      <swiper-container class="mySwiper" style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" thumbs-swiper=".mySwiper2" space-between="10" navigation="false" pagination="false">
         @for (img of sliderImages; track $index) {
@@ -300,5 +300,18 @@
         </ion-accordion>
       </ion-accordion-group>
     </div>
+
+    <!-- <div class="cart-icon d-flex justify-content-center align-items-center rounded-5 position-fixed">
+      <ion-icon name="cart-outline" class="fs-3 text-white" ></ion-icon>
+    </div> -->
+    <ion-fab class="position-fixed cart-icon" routerLink="/tabs/cart">
+      <ion-fab-button class="position-relative">
+        <ion-icon name="cart-outline" class="fs-3 text-white" ></ion-icon>
+        <span class="count-cart position-absolute">{{cartCount()}}</span>
+      </ion-fab-button>
+    </ion-fab>
   </div>
+
+
+
 </ion-content>
