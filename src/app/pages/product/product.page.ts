@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonAccordionGroup, IonAccordion, IonItem } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonAccordionGroup, IonAccordion, IonItem, IonFab, IonFabButton } from '@ionic/angular/standalone';
 import { ProductService } from 'src/core/services/product/product-service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { filter, map, switchMap, tap } from 'rxjs';
@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './product.page.html',
   styleUrls: ['./product.page.scss'],
   standalone: true,
-  imports: [IonBackButton, IonButtons, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, IonAccordionGroup, IonAccordion, IonItem, RouterLink],
+  imports: [IonBackButton, IonButtons, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, IonAccordionGroup, IonAccordion, IonItem, RouterLink, IonFab, IonFabButton],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductPage implements OnInit {
