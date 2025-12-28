@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { NgxSpinnerComponent } from "ngx-spinner";
 import { Geolocation } from '@capacitor/geolocation';
 import { Capacitor } from '@capacitor/core';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   imports: [IonApp, IonRouterOutlet, NgxSpinnerComponent],
 })
-export class AppComponent{
-  path:string = ''
-
-  constructor() {
+export class AppComponent implements OnInit{
+  ngOnInit(): void {
     this.initApp();
   }
 
@@ -23,6 +22,14 @@ export class AppComponent{
     } else {
       this.requestLocationPermission();
     }
+
+    // Hide splash
+    await SplashScreen.hide();
+
+    // Fullscreen StatusBar
+    await StatusBar.setOverlaysWebView({ overlay: false });
+    await StatusBar.setStyle({ style: Style.Default });
+    await StatusBar.hide();
   }
 
   async requestLocationPermission() {
