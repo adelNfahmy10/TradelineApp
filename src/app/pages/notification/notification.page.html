@@ -1,20 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <div class="tool-header d-flex align-items-center justify-content-between px-3 py-4 w-100">
-
-      <!-- Left Icon -->
-      <ion-icon name="person-circle-outline" color="success" class="icon-toolbar"></ion-icon>
-
-      <!-- Title -->
-      <h1 class="m-0 flex-grow-1 text-center h1 text-black fw-bold">Notifications</h1>
-
-      <!-- Right Icon -->
-      <ion-icon name="search-outline" color="success" class="icon-toolbar"></ion-icon>
-
-    </div>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-list>
     @for (notification of notifications(); track $index) {

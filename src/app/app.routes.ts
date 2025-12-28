@@ -74,4 +74,8 @@ export const routes: Routes = [
     path: 'tvc-details',
     loadComponent: () => import('./pages/tvc-details/tvc-details.page').then( m => m.TvcDetailsPage)
   },
+  {
+    path: 'search-items/:word',
+    loadComponent: () => import('./pages/search-items/search-items.page').then( m => m.SearchItemsPage)
+  },
 ];

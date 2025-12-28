@@ -21,15 +21,16 @@ export class AppComponent implements OnInit{
       this.requestLocationPermissionWeb();
     } else {
       this.requestLocationPermission();
+      // Hide splash
+      await SplashScreen.hide();
+
+      // Fullscreen StatusBar
+      await StatusBar.setOverlaysWebView({ overlay: false });
+      await StatusBar.setStyle({ style: Style.Default });
+      await StatusBar.hide();
     }
 
-    // Hide splash
-    await SplashScreen.hide();
 
-    // Fullscreen StatusBar
-    await StatusBar.setOverlaysWebView({ overlay: false });
-    await StatusBar.setStyle({ style: Style.Default });
-    await StatusBar.hide();
   }
 
   async requestLocationPermission() {

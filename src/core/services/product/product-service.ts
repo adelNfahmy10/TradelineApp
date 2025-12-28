@@ -20,4 +20,9 @@ export class ProductService {
   autoSearch(word:any):Observable<any> {
     return this._HttpClient.get(`${environment.baseUrl}product-startswith/?search=${word}`);
   }
+
+  searchProductByWord(word:any, pageNumber:any, pageSize:any):Observable<any> {
+    return this._HttpClient.get(`${environment.baseUrl}products/?search=${word}&sort=-id&page_size=${pageSize}&page=${pageNumber}`);
+  }
+
 }

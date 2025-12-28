@@ -1,21 +1,23 @@
-import { Component, computed, EnvironmentInjector, inject, OnInit, Signal } from '@angular/core';
+import { Component, computed, EnvironmentInjector, inject, OnInit, Signal, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonContent, IonHeader, IonToolbar, IonMenuButton, IonList, IonMenu, IonItem, MenuController, IonMenuToggle } from '@ionic/angular/standalone';
+import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonContent, IonHeader, IonToolbar, IonMenuButton, IonList, IonMenu, IonItem, MenuController, IonMenuToggle, IonModal, IonSearchbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { triangle, ellipse, square } from 'ionicons/icons';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs';
 import { AuthService } from 'src/core/services/auth/auth-service';
 import { CartService } from 'src/core/services/cart/cart-service';
+import { ProductService } from 'src/core/services/product/product-service';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: 'tabs.page.html',
   styleUrls: ['tabs.page.scss'],
-  imports: [IonItem, IonList, IonToolbar, IonHeader, IonContent, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, RouterLink, IonMenuButton, IonMenu, IonMenuToggle],
+  imports: [IonSearchbar, IonModal, IonItem, IonList, IonToolbar, IonHeader, IonContent, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, RouterLink, IonMenuButton, IonMenu, IonMenuToggle],
 })
 export class TabsPage implements OnInit{
   public environmentInjector = inject(EnvironmentInjector);
+  private readonly _ProductService = inject(ProductService)
   public _AuthService = inject(AuthService);
   public _CartService = inject(CartService);
   public _Router = inject(Router);
@@ -28,7 +30,10 @@ export class TabsPage implements OnInit{
   title:string = ''
   isLoggedIn: Signal<boolean> = this._AuthService.isLoggedIn;
   productCount = this._CartService.productCount || 0;
-  
+  searchResults: any[] = [];
+  searchWord:string = ''
+  @ViewChild('modal') modal!: IonModal;
+
   constructor() {
     addIcons({ triangle, ellipse, square });
   }
@@ -82,5 +87,41 @@ export class TabsPage implements OnInit{
     this.menuCtrl.close();
   }
 
+  search(event: any) {
+    this.searchWord = event.target?.value.toLowerCase() || '';
+    if (this.searchWord.length < 2) {
+      this.searchResults = [];
+      return;
+    }
+    this._ProductService.autoSearch(this.searchWord).subscribe({
+      next: (res: any[]) => {
+        const uniqueMap = new Map();
+        res.forEach(product => {
+          if (product?.id) uniqueMap.set(product.id, product);
+        });
+        this.searchResults = Array.from(uniqueMap.values());
+      },
+      error: () => this.searchResults = []
+    });
+  }
+
+  selectProductSearch(product:any):void{
+    this._Router.navigate([`/product/${product.seo_slug}`]);
+    this.modal.dismiss();
+    this.clearSearch()
+  }
+
+  submitSearchCompolate(event:any):void{
+    if (event.key === 'Enter' && this.searchWord.trim().length > 0) {
+      this._Router.navigate([`/search-items/${this.searchWord}`])
+      this.modal.dismiss();
+      this.clearSearch()
+    }
+  }
+
+  clearSearch(): void {
+    this.searchResults = [];
+    this.searchWord = '';
+  }
 
 }

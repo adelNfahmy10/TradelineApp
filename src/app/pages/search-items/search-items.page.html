@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button defaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">Shop</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container py-3">
+    <div class="row g-3">
+      @for (product of searchResults; track product.id) {
+        <div class="col-12" [routerLink]="'/product/' + product.seo_slug">
+          <div class="sub-item shadow-sm d-flex flex-column rounded-3 mb-2 border border-1">
+
+            <div class="subImg rounded-4 d-flex justify-content-center align-items-center">
+              <img
+                loading="lazy"
+                [src]="product.picture1"
+                [alt]="product.picture1_alt || product.seo_slug"
+                class="img-fluid object-fit-cover"
+              />
+            </div>
+
+            <div class="text-center p-3">
+              <h6 class="fw-bold">{{ product.name }}</h6>
+              <h5 class="fw-bold main-color">{{ product.price }} EGP</h5>
+            </div>
+
+          </div>
+        </div>
+      }
+      @if (loading && searchResults.length === 0) {
+        <div class="col-12 text-center my-4">
+          <ion-spinner name="dots"></ion-spinner>
+          <h6 class="mt-2">Loading products...</h6>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <ion-infinite-scroll threshold="150px" (ionInfinite)="loadProducts($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="dots"
+      loadingText="Loading more products...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+

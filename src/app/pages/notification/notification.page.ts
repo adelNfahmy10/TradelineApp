@@ -9,7 +9,7 @@ import { NotificationSerives } from 'src/core/services/notification/notification
   templateUrl: './notification.page.html',
   styleUrls: ['./notification.page.scss'],
   standalone: true,
-  imports: [IonAvatar, IonList, IonLabel, IonItem, IonIcon, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, DatePipe]
+  imports: [IonAvatar, IonList, IonLabel, IonItem, IonIcon, IonContent, CommonModule, FormsModule, DatePipe]
 })
 export class NotificationPage {
   private readonly _NotificationSerives = inject(NotificationSerives)

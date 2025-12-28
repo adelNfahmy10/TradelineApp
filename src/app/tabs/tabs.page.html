@@ -92,7 +92,7 @@
         </div>
 
         <!-- Right Icon -->
-        <ion-icon name="search-outline" color="success" class="icon-toolbar"></ion-icon>
+        <ion-icon name="search-outline" color="success" class="icon-toolbar" id="open-modal" (click)="clearSearch()"></ion-icon>
 
       </div>
     </ion-toolbar>
@@ -111,7 +111,7 @@
           <ion-label>Shop</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="shop" routerLink="/tabs/notification">
+        <ion-tab-button tab="notification" routerLink="/tabs/notification">
           <ion-icon name="notifications-outline"></ion-icon>
           <ion-label>Notifications</ion-label>
         </ion-tab-button>
@@ -132,3 +132,31 @@
     </ion-tabs>
   </ion-content>
 </div>
+
+
+<ion-modal #modal trigger="open-modal" [initialBreakpoint]="0.25" [breakpoints]="[0, 0.25, 0.5, 0.75]">
+  <ng-template>
+    <ion-content>
+      <ion-searchbar
+      placeholder="Search"
+      [debounce]="500"
+      (ionInput)="search($event)"
+      (ionCancel)="clearSearch()"
+      (ionClear)="clearSearch()"
+      (ionFocus)="modal.setCurrentBreakpoint(0.75)"
+      (keydown)="submitSearchCompolate($event)"
+      color="dark"></ion-searchbar>
+
+      <ion-list>
+        @for (product of searchResults; track $index) {
+          <ion-item (click)="selectProductSearch(product)">
+            <ion-label>
+              <h2>{{product.name}}</h2>
+            </ion-label>
+          </ion-item>
+        }
+      </ion-list>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>
