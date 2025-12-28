@@ -111,6 +111,16 @@
           <ion-label>Shop</ion-label>
         </ion-tab-button>
 
+        <ion-tab-button tab="shop" routerLink="/tabs/notification">
+          <ion-icon name="notifications-outline"></ion-icon>
+          <ion-label>Notifications</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="support" routerLink="/tabs/support">
+          <ion-icon name="settings-outline"></ion-icon>
+          <ion-label>Support</ion-label>
+        </ion-tab-button>
+
         <ion-tab-button class="cart-btn position-relative" tab="cart" routerLink="/tabs/cart">
           <ion-icon name="bag-outline"></ion-icon>
           <ion-label>Cart</ion-label>
@@ -118,13 +128,7 @@
             <span class="count">{{productCount()}}</span>
           }
         </ion-tab-button>
-
-        <ion-tab-button tab="support" routerLink="/tabs/support">
-          <ion-icon name="settings-outline"></ion-icon>
-          <ion-label>Support</ion-label>
-        </ion-tab-button>
       </ion-tab-bar>
-
     </ion-tabs>
   </ion-content>
 </div>

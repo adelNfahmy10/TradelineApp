@@ -20,7 +20,7 @@
   @for (cat of categories(); track $index) {
     <ion-card class="rounded-4">
       <ion-card-header>
-        <div class="row g-2">
+        <div class="row g-2" [routerLink]="'/categories/' + cat.seo_slug">
           <div class="col-4">
             <div class="icon-card d-flex justify-content-center align-items-center h-100 w-100">
               <img loading="lazy" [src]="cat.picture" class="w-100" [alt]="cat.picture_alt">

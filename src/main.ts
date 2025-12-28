@@ -13,7 +13,6 @@ import { provideToastr } from 'ngx-toastr';
 
 import { headerInterceptor } from './core/interceptors/header/header-interceptor';
 import { loadingInterceptor } from './core/interceptors/loading/loading-interceptor';
-import { errorsInterceptor } from './core/interceptors/errors/errors-interceptor';
 
 // register Swiper custom elements
 register();

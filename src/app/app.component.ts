@@ -1,26 +1,20 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonMenu, IonContent, IonList, IonItem, IonButtons, IonMenuButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import { Component } from '@angular/core';
+import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { NgxSpinnerComponent } from "ngx-spinner";
 import { Geolocation } from '@capacitor/geolocation';
 import { Capacitor } from '@capacitor/core';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   imports: [IonApp, IonRouterOutlet, NgxSpinnerComponent],
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
   path:string = ''
 
   constructor() {
     this.initApp();
-  }
-
-  ngOnInit(): void {
-    this.pathPage()
-  }
-
-  pathPage():void{
   }
 
   async initApp() {
