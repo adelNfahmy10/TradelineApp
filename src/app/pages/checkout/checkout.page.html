@@ -1,0 +1,306 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="tool-header d-flex align-items-center py-4 w-100">
+      <ion-buttons slot="start" class="text-black">
+        <ion-back-button defaultHref="/tabs/explore"></ion-back-button>
+      </ion-buttons>
+
+      <h1 class="m-0 flex-grow-1 text-center fs-2 text-black fw-bold me-4">Checkout</h1>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <div class="checkout">
+    <!-- ================= Payment ================= -->
+    <h3 class="main-color mx-4 my-3">Payment Methods</h3>
+    <ion-list lines="none" class="mx-4">
+      <ion-radio-group (ionChange)="onPaymentChange($event)">
+        @for (pm of payments_arr_avail; track $index) {
+          @if (pm.is_allowed) {
+            <ion-item class="border-bottom">
+              <ion-radio [value]="pm.code" labelPlacement="start">
+                @switch(pm.code){
+                  @case(0) {
+                    <img [src]="pm.image" alt="Credit Card on delivery">
+                    Credit Card on delivery
+                  }
+
+                  @case(1) {
+                    <img [src]="pm.image" alt="Cash On Delivery">
+                    Cash On Delivery
+                  }
+
+                  @case(2) {
+                    <img [src]="pm.image" alt="Online Payment">
+                    Online Payment
+                  }
+
+                  @case(4) {
+                    <img [src]="pm.image" alt="Credit - Debit On Delivery">
+                    Credit - Debit On Delivery
+                  }
+
+                  @case(5) {
+                    <img [src]="pm.image" alt="NBE Installment">
+                    NBE Installment
+                  }
+
+                  @case(6) { 6 months }
+                  @case(7) { Credit Card Installment (CIB - QNB) }
+                  @case(9) { ahly 9 months }
+                  @case(12) { 12 months }
+                  @case(18) { 18 months }
+                  @case(24) { 24 months }
+                  @case(30) { 30 months }
+                  @case(36) { ahly 36 months }
+
+                  @case(100) {
+                    <img [src]="pm.image" alt="valU">
+                    valU
+                  }
+
+                  @case(101) {
+                    <img [src]="pm.image" alt="FawryPay">
+                    FawryPay
+                  }
+
+                  @case(200) {
+                    <img [src]="pm.image" alt="PremiumCard">
+                    PremiumCard
+                  }
+
+                  @case(201) {
+                    <img [src]="pm.image" alt="Orange">
+                    Orange
+                  }
+
+                  @case(202) {
+                    <img [src]="pm.image" alt="Contact Shopping">
+                    Contact Shopping
+                  }
+
+                  @case(203) {
+                    <img [src]="pm.image" alt="Souhoola">
+                    Souhoola
+                  }
+
+                  @case(204) {
+                    <img [src]="pm.image" alt="Sympl">
+                    Sympl
+                  }
+
+                  @case(213) {
+                    <img [src]="pm.image" alt="Forsa">
+                    Forsa
+                  }
+
+                  @case(216) {
+                    <img [src]="pm.image" alt="Banque du cairo Installment">
+                    Banque du cairo Installment
+                  }
+
+                  @case(222) {
+                    <img [src]="pm.image" alt="Vodafone">
+                    Vodafone
+                  }
+
+                  @case(444) {
+                    <img [src]="pm.image" alt="NBE Installment Direct">
+                    NBE Installment Direct
+                  }
+
+                  @case(555) {
+                    <img [src]="pm.image" alt="paymob">
+                    ValU | Apple Pay | Online Payment
+                  }
+
+                  @case(556) {
+                    <img [src]="pm.image" alt="Souhoola 12m">
+                    Souhoola 12m 0% interest 0% downpaymet 0% admin fees (machine on delivery)
+                  }
+
+                  @case(206) {
+                    <img [src]="pm.image" alt="valU 12m">
+                    valU 12m 0% interest 0% downpaymet (Payment Link will be sent via SMS)
+                  }
+
+                  @default {
+                    {{ pm.name }}
+                  }
+                }
+              </ion-radio>
+            </ion-item>
+          }
+        }
+      </ion-radio-group>
+    </ion-list>
+
+    <!-- ================= Installments ================= -->
+    @if(installmentMethods().length > 0){
+      <ion-list lines="none" class="p-4">
+        <ion-list-header>
+          <ion-label>Installment Options</ion-label>
+        </ion-list-header>
+        @for (pm of installmentMethods(); track $index) {
+          <ion-item>
+            <ion-label>{{ pm.name }}</ion-label>
+            <ion-radio
+              slot="start"
+              value="pm.code"
+              [(ngModel)]="selectedPaymentMethod"
+              name="paymentMethod"
+            ></ion-radio>
+          </ion-item>
+        }
+
+      </ion-list>
+    }
+
+    <!-- ================= Form Checkout ================= -->
+    @if(showForms){
+      <hr>
+      <form class="checkform mx-4" [formGroup]="checkoutForm">
+        <h3 class="main-color">Shipping Address</h3>
+        <ion-list lines="none" class="d-flex flex-column gap-2">
+          <ion-item class="shadow-sm rounded-4">
+            <ion-input formControlName="name" class="main-color" placeholder="Name"></ion-input>
+          </ion-item>
+
+          <ion-item class="shadow-sm rounded-4">
+            <ion-input formControlName="phone" class="main-color" placeholder="Phone"></ion-input>
+          </ion-item>
+
+          <ion-item class="shadow-sm rounded-4">
+            <ion-input formControlName="email" class="main-color" placeholder="Email"></ion-input>
+          </ion-item>
+
+          <ion-item class="shadow-sm rounded-4">
+            <ion-input formControlName="address1" class="main-color" placeholder="Enter Your Address 1*"></ion-input>
+          </ion-item>
+
+          <p class="mx-2 mt-2 mb-0 text-muted">City*</p>
+          <ion-item class="shadow-sm rounded-4">
+            <ion-select formControlName="city" aria-label="City" interface="popover" placeholder="Select Your City">
+              @for (city of cities; track $index) {
+                <ion-select-option [value]="city">{{city}}</ion-select-option>
+              }
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="shadow-sm rounded-4">
+            <ion-input formControlName="address2" class="main-color" placeholder="Enter Your Address 2"></ion-input>
+          </ion-item>
+
+          <hr>
+          <h3 class="main-color">Biling Address</h3>
+          <p class="border border-2 text-center p-2 rounded-4" [class.toggle-biling]="!showBilingAddress" (click)="toggleBilingAddress()">Use the same as above</p>
+          @if(showBilingAddress){
+            <ion-item class="shadow-sm rounded-4">
+              <ion-select formControlName="bilingCity" aria-label="City" interface="popover" placeholder="Select Your City">
+                @for (city of cities; track $index) {
+                  <ion-select-option [value]="city">{{city}}</ion-select-option>
+                }
+              </ion-select>
+            </ion-item>
+
+            <ion-item class="shadow-sm rounded-4">
+              <ion-input formControlName="bilingAddress" class="main-color" placeholder="Enter Your Address 2"></ion-input>
+            </ion-item>
+          }
+
+
+          <ion-item>
+            <ion-button class="main-btn mx-auto" (click)="continueOrder(true)">Checkout</ion-button>
+          </ion-item>
+        </ion-list>
+      </form>
+    }
+
+  </div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header [translucent]="true">
+        <ion-toolbar>
+          <div class="tool-header d-flex justify-content-between align-items-center py-4 px-2 w-100">
+            <h1 class="m-0 fs-2 text-black fw-bold me-4">Checkout</h1>
+
+            <ion-buttons slot="end">
+              <ion-button class="text-black" (click)="continueOrder(false)">Close</ion-button>
+            </ion-buttons>
+          </div>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div class="content">
+          <h4 class="main-color">Shipping Address</h4>
+          <ion-list lines="none" class="d-flex flex-column gap-2">
+            <ion-item class="shadow-sm rounded-4">
+              <p class="text-muted">{{checkoutForm.get('name')?.value}}</p>
+            </ion-item>
+
+            <ion-item class="shadow-sm rounded-4">
+              <p class="text-muted">{{checkoutForm.get('email')?.value}}</p>
+            </ion-item>
+
+            <ion-item class="shadow-sm rounded-4">
+              <p class="text-muted">{{checkoutForm.get('phone')?.value}}</p>
+            </ion-item>
+
+            <ion-item class="shadow-sm rounded-4">
+              <p class="text-muted">{{checkoutForm.get('city')?.value}}</p>
+            </ion-item>
+
+            <ion-item class="shadow-sm rounded-4">
+              <p class="text-muted">{{checkoutForm.get('address1')?.value}}</p>
+            </ion-item>
+          </ion-list>
+
+          <hr>
+          <h4 class="main-color">Promo Code</h4>
+          <p>{{ promoCode }}</p>
+          <ion-item class="shadow-sm rounded-4">
+            <ion-input [(ngModel)]="promoCode" class="main-color" placeholder="Promo Code"></ion-input>
+          </ion-item>
+        </div>
+
+        <ion-card class="rounded-4 sticky-bottom w-100 mx-auto">
+          <ion-card-content>
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              <h4 class="fw-bold fs-6 m-0 text-black">Count :</h4>
+              <h4 class="text-success fs-6 m-0"> {{count()}} Product(s)</h4>
+            </div>
+
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              <h4 class="fw-bold fs-6 m-0 text-black">Shipping :</h4>
+              <h4 class="text-success fs-6 m-0"> {{shippingValue()}} EGP</h4>
+            </div>
+
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              <h4 class="fw-bold fs-6 m-0 text-black">SubTotal :</h4>
+              <h4 class="text-success fs-6 m-0"> {{subTotal() | number : '0.1-2'}} EGP</h4>
+            </div>
+
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              <h4 class="fw-bold fs-6 m-0 text-black">Taxes :</h4>
+              <h4 class="text-success fs-6 m-0"> {{tax() | number : '0.1-2'}} EGP</h4>
+            </div>
+
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              <h4 class="fw-bold fs-6 m-0 text-black">Total :</h4>
+              <h4 class="text-success fs-6 m-0"> {{totalAmount() | number : '0.1-2'}} EGP</h4>
+            </div>
+
+            <hr class="my-2">
+
+            <div class="d-flex justify-content-center align-items-center w-100">
+              <ion-button class="main-btn mx-auto" [disabled]="cartItems().length === 0" (click)="checkout()">Checkout</ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

@@ -78,4 +78,8 @@ export const routes: Routes = [
     path: 'search-items/:word',
     loadComponent: () => import('./pages/search-items/search-items.page').then( m => m.SearchItemsPage)
   },
+  {
+    path: 'checkout',
+    loadComponent: () => import('./pages/checkout/checkout.page').then( m => m.CheckoutPage)
+  },
 ];

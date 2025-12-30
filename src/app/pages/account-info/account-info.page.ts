@@ -51,12 +51,10 @@ export class AccountInfoPage implements OnInit{
 
   toggleEdit(): void {
     this.editMode = true
-
   }
 
   submitUpdate():void{
     this.editMode = false
-
   }
 
 }

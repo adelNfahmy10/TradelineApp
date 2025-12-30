@@ -91,7 +91,7 @@
 
       <div class="d-flex justify-content-center align-items-center gap-1 w-100">
         <ion-button class="continue w-50" fill="outline" routerLink="/tabs/shop">Continue Shopping</ion-button>
-        <ion-button class="checkout w-50" [disabled]="cartItems().length === 0">Checkout</ion-button>
+        <ion-button class="checkout w-50" [disabled]="cartItems().length === 0" (click)="checkoutCart()">Checkout</ion-button>
       </div>
     </ion-card-content>
   </ion-card>

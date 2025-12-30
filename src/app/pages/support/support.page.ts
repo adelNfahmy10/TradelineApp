@@ -8,7 +8,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonItem, IonList,
   templateUrl: './support.page.html',
   styleUrls: ['./support.page.scss'],
   standalone: true,
-  imports: [IonLabel,  IonList, IonItem, IonIcon, IonContent, IonHeader,  IonToolbar, CommonModule, FormsModule]
+  imports: [IonLabel,  IonList, IonItem, IonContent, CommonModule, FormsModule]
 })
 export class SupportPage implements OnInit {
 

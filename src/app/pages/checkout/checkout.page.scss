@@ -1,0 +1,33 @@
+$main-color: #00a359;
+$second-color: #017943;
+
+ion-radio {
+  font-size: 12px;
+  font-weight: 600;
+  img{
+    width: 80px;
+    height: 30px;
+    object-fit: contain;
+    margin-right: 10px;
+  }
+}
+ion-input, ion-select{
+  --placeholder-color:#aaa
+}
+
+ion-select::part(text) {
+  color: $main-color;
+}
+.main-btn {
+  height: 35px;
+}
+.toggle-biling{
+  border: 3px solid $main-color !important;
+}
+
+ion-modal{
+  p{
+    font-size: 14px;
+  }
+}
+

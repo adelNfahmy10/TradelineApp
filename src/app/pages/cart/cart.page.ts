@@ -4,8 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonItemOption, IonList, IonItemSliding, IonItemOptions, IonIcon, IonItem, IonLabel,  IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton } from '@ionic/angular/standalone';
 import { CartService } from 'src/core/services/cart/cart-service';
 import { AuthService } from 'src/core/services/auth/auth-service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -18,6 +19,7 @@ export class CartPage implements OnInit{
   private _CartService = inject(CartService);
   private _AuthService = inject(AuthService);
   private _ToastrService = inject(ToastrService);
+  private _Router = inject(Router);
 
   cartItems:WritableSignal<any[]> = signal([])
   token = this._AuthService.token;
@@ -27,6 +29,8 @@ export class CartPage implements OnInit{
   subTotal:WritableSignal<number> = signal(0)
   tax:WritableSignal<number> = signal(0)
   shippingValue:WritableSignal<number> = signal(0)
+
+  allProductsCart!:Subscription
 
   ngOnInit(): void {
     this.fetchCartData()
@@ -46,7 +50,7 @@ export class CartPage implements OnInit{
     const id = this.token() ? 2 : this.currentCartId();
     if (!id) return;
 
-    this._CartService.getCart().subscribe({
+    this.allProductsCart = this._CartService.getCart().subscribe({
       next: (res) => {
         this.cartItems.set([]);
         this.cartItems.set(res?.cartproduct || []);
@@ -70,6 +74,7 @@ export class CartPage implements OnInit{
       next:(res)=>{
         if(this.cartItems().length > 0){
           this.shippingValue.set(res[0].shipping || 0)
+          this.totalAmount.set(this.totalAmount() + this.shippingValue())
         } else {
           this.shippingValue.set(0)
           this.tax.set(0)
@@ -89,5 +94,16 @@ export class CartPage implements OnInit{
         this._ToastrService.error('Failed to delete the product')
       }
     })
+  }
+
+  checkoutCart():void{
+    if(this.cartItems().length !== 0){
+      this._Router.navigate(['/checkout'])
+    }
+  }
+
+  /*##################################### Unsubscrib ##################################### */
+  ngOnDestroy(): void {
+    this.allProductsCart?.unsubscribe()
   }
 }

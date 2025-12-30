@@ -1,16 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonList, IonItem, IonTextarea, IonInput, IonButton, IonRouterLink } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonList, IonItem, IonTextarea, IonInput } from '@ionic/angular/standalone';
 import { CallbackService } from 'src/core/services/callback/callback-service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-callback',
   templateUrl: './callback.page.html',
   styleUrls: ['./callback.page.scss'],
   standalone: true,
-  imports: [IonInput, IonTextarea, IonItem, IonList, IonBackButton, IonButtons, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule, IonRouterLink, RouterLink]
+  imports: [IonInput, IonTextarea, IonItem, IonList, IonBackButton, IonButtons, IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, ReactiveFormsModule ]
 })
 export class CallbackPage {
   private readonly _FormBuilder = inject(FormBuilder)

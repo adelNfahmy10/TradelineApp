@@ -13,7 +13,7 @@ import { CartService } from 'src/core/services/cart/cart-service';
   templateUrl: './explore.page.html',
   styleUrls: ['./explore.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonRouterLink, RouterLink, IonModal, IonSearchbar, IonList, IonItem, IonLabel],
+  imports: [IonContent, CommonModule, FormsModule, IonRouterLink, RouterLink, IonModal],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ExplorePage implements OnInit{
